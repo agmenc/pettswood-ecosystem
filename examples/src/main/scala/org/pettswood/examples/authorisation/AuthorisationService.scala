@@ -10,7 +10,10 @@ object DoNothingRole extends Role("do nothing")
 
 object AllowedRoles {
   val roles = HashMap(
-    "trade support" -> Role("trade support", Permission("Create Trade"), Permission("View Trade"), Permission("Amend Trade"))
+    "trade support"       -> Role("trade support",      Permission("Create Trade"), Permission("View Trade"), Permission("Amend Trade")),
+    "it"                  -> Role("it",                 Permission("View Trade")),
+    "first-line support"  -> Role("first-line support", Permission("View Trade"), Permission("Amend Trade")),
+    "trading"             -> Role("trading",            Permission("Create Trade"), Permission("View Trade"), Permission("Amend Trade"), Permission("Book Trade"))
   )
   def apply(roleName: String):Role = {
     roles.getOrElse(roleName toLowerCase, DoNothingRole)
