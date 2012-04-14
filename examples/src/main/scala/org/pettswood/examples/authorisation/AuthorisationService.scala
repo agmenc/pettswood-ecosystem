@@ -20,20 +20,8 @@ object AllowedRoles {
 class AuthorisationService(database: HashMap[String, User]) {
   def allowed(name: String, action: String):Boolean = {
     database.get(name) match {
-      case Some(user) => testPermission(user, action)
+      case Some(user) => user.roles.flatMap(_.permissions).exists(_.actionName.toLowerCase == action.toLowerCase)
       case None => false
     }
-  }
-
-  def testPermission(user: User, action: String) = {
-    val roles = user.roles
-    println("roles: " + roles)
-    val permissions = roles.flatMap(_.permissions)
-    println("permissions: " + permissions)
-    println("action: " + action.toLowerCase)
-    permissions.foreach(perm => println("perm: " + perm.actionName.toLowerCase))
-    val existing = permissions.exists(_.actionName.toLowerCase == action.toLowerCase)
-    println("existing: " + existing)
-    existing
   }
 }
