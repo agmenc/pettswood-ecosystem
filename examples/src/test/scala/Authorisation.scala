@@ -1,6 +1,6 @@
 import collection.mutable.HashMap
 import org.pettswood.examples.authorisation._
-import org.pettswood.{DomainBridge, Mixin}
+import org.pettswood._
 
 class Authorisation(domain: DomainBridge) extends Mixin(domain) {
   var database = HashMap[String, User]()

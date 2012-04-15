@@ -13,7 +13,7 @@ class AssumingUsers(database: HashMap[String, User]) extends MultiRow {
 
   case class Name(name: String) extends Doer {username = name}
   case class Roles(roles: String) extends Digger {
-    val allowedRoles = roles.split(",").map(_ trim).map(AllowedRoles(_))
+    val allowedRoles = roles.split(",").map(_ trim).map(AvailableRoles(_))
     database.put(username, User(username, allowedRoles : _*))
     def actual = roles
   }
