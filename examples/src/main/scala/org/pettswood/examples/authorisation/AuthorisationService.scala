@@ -25,7 +25,11 @@ object AvailableRoles {
   }
 }
 
-class AuthorisationService(userDatabase: HashMap[String, User]) {
+trait Service {
+  def start() { /* Light the touchpaper and stand well clear */ }
+}
+
+class AuthorisationService(userDatabase: HashMap[String, User]) extends Service {
   var loggedInUser: User = Guest
 
   def logIn(name: String) { loggedInUser = userDatabase.getOrElse(name, Guest) }
