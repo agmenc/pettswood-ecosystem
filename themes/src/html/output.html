@@ -1,0 +1,114 @@
+<html xml:lang="en">
+<head>
+    <title>Trade Booking System Access Controls</title>
+    <link rel="stylesheet" type="text/css" href="../../../../pettswood/src/test/resources/css/pettswood.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../css/next.css"/>-->
+</head>
+<body>
+<h1>Trade Booking System Access Controls</h1>
+<table class="mixins Setup">
+    <tr>
+        <td class="names Setup">Mixins</td>
+        <td class="Setup">Authorisation</td>
+    </tr>
+</table>
+<table class="left Setup">
+    <tr>
+        <td class="names Setup">Start</td>
+        <td class="Pass">Authorisation service</td>
+    </tr>
+</table>
+<table class="left Setup">
+    <tbody>
+    <tr class="fixture">
+        <td class="Setup">Assuming users</td>
+    </tr>
+    <tr class="names">
+        <td class="Setup">Name</td>
+        <td class="Setup">Roles</td>
+    </tr>
+    <tr>
+        <td class="Setup">Sue from trading</td>
+        <td class="Pass">Trading, Structuring</td>
+    </tr>
+    <tr>
+        <td class="Setup">Bob from trade support</td>
+        <td class="Pass">Trade Support</td>
+    </tr>
+    <tr>
+        <td class="Setup">John from IT</td>
+        <td class="Pass">IT, First-line support</td>
+    </tr>
+    <tr>
+        <td class="Setup">Frank from first-line support</td>
+        <td class="Pass">First-line support</td>
+    </tr>
+    <tr>
+        <td class="Setup">Brian the tea lady</td>
+        <td class="Pass">Tea lady</td>
+    </tr>
+    </tbody>
+</table>
+<table class="left Setup">
+    <tbody>
+    <tr class="fixture">
+        <td class="Setup">Access by user</td>
+    </tr>
+    <tr class="names">
+        <td class="Setup">Name</td>
+        <td class="Setup">Create Trade</td>
+        <td class="Setup">View Trade</td>
+        <td class="Setup">Amend Trade</td>
+        <td class="Setup">Book Trade</td>
+        <td class="Setup">Raid Vault</td>
+    </tr>
+    <tr>
+        <td class="Setup">Sue from trading</td>
+        <td class="Pass">X</td>
+        <td class="Pass">X</td>
+        <td class="Pass">X</td>
+        <td class="Pass">X</td>
+        <td class="Pass"></td>
+    </tr>
+    <tr>
+        <td class="Setup">Bob from trade support</td>
+        <td class="Pass">X</td>
+        <td class="Pass">X</td>
+        <td class="Pass">X</td>
+        <td class="Pass"></td>
+        <td class="Pass"></td>
+    </tr>
+    <tr>
+        <td class="Setup">John from IT</td>
+        <td class="Pass"></td>
+        <td class="Pass">X</td>
+        <td class="Fail"><span class="result">X<br></br>but expected:<br></br></span></td>
+        <td class="Pass"></td>
+        <td class="Pass"></td>
+    </tr>
+    <tr>
+        <td class="Setup">Frank from first-line support</td>
+        <td class="Pass"></td>
+        <td class="Pass">X</td>
+        <td class="Pass">X</td>
+        <td class="Pass"></td>
+        <td class="Pass"></td>
+    </tr>
+    <tr>
+        <td class="Setup">Brian the tea lady</td>
+        <td class="Pass"></td>
+        <td class="Pass"></td>
+        <td class="Pass"></td>
+        <td class="Pass"></td>
+        <td class="Pass"></td>
+    </tr>
+    </tbody>
+</table>
+<table>
+    <tr>
+        <td class="Setup">Results:</td>
+        <td class="Fail">Pass: 30 Fail: 1 Setup: 23 Exception: 0</td>
+    </tr>
+</table>
+</body>
+</html>
