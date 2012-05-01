@@ -2,11 +2,11 @@ import collection.mutable.HashMap
 import org.pettswood.examples.authorisation._
 import org.pettswood._
 
-class Authorisation(domain: DomainBridge) extends Mixin(domain) {
-  val database = HashMap[String, User]()
-  val service = new AuthorisationService(database)
+class Authorisation(pettswood: DomainBridge) extends Mixin(pettswood) {
+  val userDatabase = HashMap[String, User]()
+  val service = new AuthorisationService(userDatabase)
 
-  domain.learn("Start", () => new Start(service))
-  domain.learn("Assuming users", () => new AssumingUsers(database))
-  domain.learn("Access by user", () => new AccessByUser(service))
+  pettswood.learn("Start", () => new Start(service))
+  pettswood.learn("Assuming users", () => new AssumingUsers(userDatabase))
+  pettswood.learn("Access by user", () => new AccessByUser(service))
 }
