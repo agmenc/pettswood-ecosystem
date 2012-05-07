@@ -56,6 +56,10 @@ describe('WizzyWig', function () {
         expect(true).toBeFalsy();
     });
 
+    it('Enter/Return moves to the next editable element', function () {
+        expect(true).toBeFalsy();
+    });
+
     it('We see an editing console when an item is being edited', function () {
         expect(true).toBeFalsy();
     });

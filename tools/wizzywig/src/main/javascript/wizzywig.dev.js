@@ -12,22 +12,7 @@
 
 $LAB
         .script("../../main/javascript/jquery-1.7.2.min.js").wait()
-        .script("../../main/javascript/WizzyWig.js")
         .script("../../main/javascript/CssLoader.js")
         .script("../../main/javascript/Inputter.js")
         .script("../../main/javascript/StyleCopier.js")
-        .wait(function () {
-            new CssLoader("../../main/css/wizzywig.css");
-            new WizzyWig("td, h1, h2, p");
-        });
-
-function asPlain($jquerifiedElement) {
-    return $jquerifiedElement[0];
-}
-
-function exists($thing) {
-    if (typeof $thing === "undefined") return false;
-    if (!$thing.size) throw "Not a JQuery object";
-    return $thing.size() > 0;
-}
-
+        .script("../../main/javascript/WizzyWig.js");
