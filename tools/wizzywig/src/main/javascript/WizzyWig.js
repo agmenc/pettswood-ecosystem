@@ -17,7 +17,13 @@ function WizzyWig(editableElements) {
     });
 }
 
+function cssUrl() {
+    var src = $('script[src*="izzy"]').first().attr("src");
+    console.log(src);
+    return src.replace(/main\/javascript\/.*/g, "main/css/wizzywig.css");
+}
+
 $(document).ready(function() {
-    new CssLoader("../../main/css/wizzywig.css");
+    new CssLoader(cssUrl());
     new WizzyWig("td, h1, h2, p");
 });
