@@ -11,11 +11,13 @@
     <script type="text/javascript" src="../javascript/jasmine-1.1.0/jasmine-html.js"></script>
 
     <!-- include source files here... -->
-    <script type="text/javascript" src="../../main/javascript/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="../../main/javascript/WizzyWig.js"></script>
+    <script type="text/javascript" src="../../main/javascript/wizzywig.dev.js"></script>
 
     <!-- include spec files here... -->
     <script type="text/javascript" src="../javascript/WizzyWigSpec.js"></script>
+    <script type="text/javascript" src="../javascript/CssLoaderSpec.js"></script>
+    <script type="text/javascript" src="../javascript/InputterSpec.js"></script>
+    <script type="text/javascript" src="../javascript/StyleCopierSpec.js"></script>
 
     <script type="text/javascript">
         (function() {
@@ -25,7 +27,6 @@
             var trivialReporter = new jasmine.TrivialReporter();
 
             jasmineEnv.addReporter(trivialReporter);
-
             jasmineEnv.specFilter = function(spec) {
                 return trivialReporter.specFilter(spec);
             };
@@ -36,13 +37,8 @@
                 if (currentWindowOnload) {
                     currentWindowOnload();
                 }
-                execJasmine();
-            };
-
-            function execJasmine() {
                 jasmineEnv.execute();
-            }
-
+            };
         })();
     </script>
 

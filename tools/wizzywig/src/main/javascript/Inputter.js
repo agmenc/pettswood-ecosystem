@@ -1,0 +1,28 @@
+//
+
+function Inputter($elem) {
+
+    var originalText = $elem.text();
+    var originalStyles = new StyleCopier($elem, ['height', 'width']);
+    $elem.text("");
+    $elem.append(Inputter.inputElement);
+    var $inputElement = $elem.find("input");
+    $inputElement.val(originalText);
+    originalStyles.apply($inputElement);
+
+    $inputElement.click(function($event) {
+        $event.stopPropagation();
+    });
+
+    $inputElement.blur(function() {
+        var parent = $inputElement.parent();
+        var val = $inputElement.val();
+
+        $inputElement.remove();
+        parent.html(val);
+    });
+
+    asPlain($inputElement).focus();
+}
+
+Inputter.inputElement = '<input class="inputter" name="inputter" type="text" value="@original text@">';

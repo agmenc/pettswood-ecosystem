@@ -2,36 +2,75 @@
 
 describe('WizzyWig', function () {
 
+    var HTML = '' +
+            '<div id="html">' +
+            '  <h1 id="mainHeading">Monkeys</h1><table><tr><td>Lions</td></tr></table><h2>Zebras</h2><p>Apples</p><div>Elephants</div>' +
+            '</div>';
+    var EDITABLE_ELEMENTS = "td, h1, h2, p";
     var wizzyWig;
 
     beforeEach(function () {
-        wizzyWig = new WizzyWig();
+        $("body").append(HTML);
+        expect($(EDITABLE_ELEMENTS).length).toBeGreaterThan(0);
+        wizzyWig = new WizzyWig(EDITABLE_ELEMENTS);
     });
 
     afterEach(function () {
-        //
+        $("#html").remove()
     });
 
     it('Editable elements are identified on hover', function () {
-        expect($emptyDiv.html()).toContain(child());
+        $(EDITABLE_ELEMENTS).each(function () {
+            expect($(this).hasClass("editable")).toBeTruthy();
+        });
     });
 
+    it('Clicking on an editable element creates an inputter', function () {
+        var monkeys = elem("Monkeys");
 
+        click("Monkeys");
 
-//    it('Uses the div id as key to find saved JSON data to populate the tree', function () {
-//        $emptyDiv.html("");
-//        spyOn(storage, 'holds').andReturn(false);
-//
-//        listBuilder = new Builder($emptyDiv, storage);
-//
-//        expect(storage.holds).toHaveBeenCalledWith("emptyDiv");
-//    });
-//    it('Fails noisily if you try to bind an ideaList to a root that already contains one', function () {
-//        $("body").append('<div id="divWithChildren" class="ideaList"><span>You are a monkey</span></div>');
-//
-//        expect(function() {
-//            new Builder($("#divWithChildren"), storage);
-//        }).toThrow("Cannot bind an ideaList to a DOM object with children. Use an empty div instead.");
-//    });
+        expect(monkeys.find("input").val()).toEqual("Monkeys");
+    });
 
+    it('When an element that is being edited loses focus, the input field disappears', function () {
+        var monkeys = elem("Monkeys");
+
+        click("Monkeys");
+        expect(exists(monkeys.find("input"))).toBeTruthy();
+
+        click("Lions");
+        expect(exists(monkeys.find("input"))).toBeFalsy();
+    });
+
+    it('When an element that is being edited loses focus, the value is written back to the original element', function () {
+        var monkeys = elem("Monkeys");
+        click("Monkeys");
+
+        click("Lions");
+
+        expect(monkeys.html()).toEqual("Monkeys");
+    });
+
+    it('We can tab from one editable element to the next', function () {
+        expect(true).toBeFalsy();
+    });
+
+    it('We see an editing console when an item is being edited', function () {
+        expect(true).toBeFalsy();
+    });
+
+    it('Only leaf elements are editable', function () {
+        expect(true).toBeFalsy();
+    });
+
+    function click(text) {
+        elem(text).click();
+    }
+
+    function elem(text) {
+        return $(EDITABLE_ELEMENTS).filter(function () {
+            return $(this).text() == text;
+        }).first();
+    }
 });
