@@ -16,7 +16,8 @@ describe('WizzyWig', function () {
     });
 
     afterEach(function () {
-        $("#html").remove()
+        $("#html").remove();
+        $("#wizzywigConsole").remove();
     });
 
     it('Editable elements are identified on hover', function () {
@@ -52,15 +53,23 @@ describe('WizzyWig', function () {
         expect(monkeys.html()).toEqual("Monkeys");
     });
 
+    it('We see an editing console when an item is being edited', function () {
+        expect($("#wizzywigConsole").hasClass("hidden")).toBeTruthy();
+
+        click("Monkeys");
+
+        expect($("#wizzywigConsole").hasClass("hidden")).toBeFalsy();
+    });
+
+    it('We can save the page after we have modified it', function () {
+        expect(true).toBeFalsy();
+    });
+
     it('We can tab from one editable element to the next', function () {
         expect(true).toBeFalsy();
     });
 
     it('Enter/Return moves to the next editable element', function () {
-        expect(true).toBeFalsy();
-    });
-
-    it('We see an editing console when an item is being edited', function () {
         expect(true).toBeFalsy();
     });
 

@@ -11,19 +11,19 @@ function exists($thing) {
 }
 
 function WizzyWig(editableElements) {
+    $("body").append(WizzyWig.console);
     $(editableElements).each(function() {
         $(this).addClass("editable");
-        $(this).click(function () { new Inputter($(this)); });
+        $(this).click(function () {
+            new Inputter($(this));
+            if ($("#wizzywigConsole").hasClass("hidden")) $("#wizzywigConsole").removeClass("hidden");
+        });
     });
 }
 
-function cssUrl() {
-    var src = $('script[src*="izzy"]').first().attr("src");
-    console.log(src);
-    return src.replace(/main\/javascript\/.*/g, "main/css/wizzywig.css");
-}
+WizzyWig.console = '<div id="wizzywigConsole" class="hidden"><button>Save</button></div>';
 
-$(document).ready(function() {
-    new CssLoader(cssUrl());
-    new WizzyWig("td, h1, h2, p");
-});
+function cssUrl() {
+    var url = $('script[src*="izzy"]').first().attr("src");
+    return url.replace(/main\/javascript\/.*/g, "main/css/wizzywig.css");
+}
