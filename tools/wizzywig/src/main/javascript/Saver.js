@@ -10,6 +10,9 @@ function Saver() {
             $(this).removeClass("editable");
         });
 
+        $("#wizzywigConsole").remove();
+        $("#wizzywigConsole").remove();
+
         var strippedContents = $("#saverSandbox").html().replace(/ class=\"\"/g, "");
         $("#saverSandbox").remove();
         return strippedContents;
