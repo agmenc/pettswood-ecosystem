@@ -9,3 +9,8 @@ $(document).ready(function() {
     new CssLoader(cssUrl());
     new WizzyWig(new Saver(), WizzyWig.editableElements);
 });
+
+function cssUrl() {
+    var url = $('script[src*="izzy"]').first().attr("src");
+    return url.replace(/main\/javascript\/.*/g, "main/css/wizzywig.css");
+}

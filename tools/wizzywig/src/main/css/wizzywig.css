@@ -1,6 +1,24 @@
 /**/
 
 input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; border: none; resize: horizontal; }
+
+#wizzywigConsole {
+    /*height: 20px; overflow: hidden;*/
+    position: relative; left: -50%; text-align: center;
+    border: thin solid grey; border-radius: 10px;
+    background-color: #b0c4de; opacity: 0.7
+}
+#wizzywigConsole table { font-size: 70%; }
+#wizzywigConsole .fixture { font-size: 120%; }
+#wizzywigConsole .fixture { font-size: 120%; }
+#wizzywigConsole button { margin: 0; }
+#wizzywigConsole:hover { height: auto; }
+
+h1, h2, h3, h4, h5, h6  { display: table; }
+
+.middleFixed { position: fixed; left: 50%; top: 10px; }
 .hidden { display: none; visibility: hidden; }
 .editable:hover { background-color: gray; }
-#wizzywigConsole { position: fixed; top: 10px; width: 50px; text-align: center; margin-left: 40%;}
+.left { float: left; }
+.clear { clear: both; }
+.spaced { margin: 5px; }
