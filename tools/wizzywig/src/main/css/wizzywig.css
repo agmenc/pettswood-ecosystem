@@ -3,4 +3,4 @@
 input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; border: none; resize: horizontal; }
 .hidden { display: none; visibility: hidden; }
 .editable:hover { background-color: gray; }
-#wizzywigConsole { position: absolute; top: 10px; width: 100%; text-align: center; }
+#wizzywigConsole { position: fixed; top: 10px; width: 50px; text-align: center; margin-left: 40%;}
