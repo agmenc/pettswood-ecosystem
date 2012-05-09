@@ -10,8 +10,9 @@ function exists($thing) {
     return $thing.size() > 0;
 }
 
-function WizzyWig(editableElements) {
+function WizzyWig(saver, editableElements) {
     $("body").append(WizzyWig.console);
+    $("#wizzywigConsole .save").click(function() { saver.save(); });
     $(editableElements).each(function() {
         $(this).addClass("editable");
         $(this).click(function () {
@@ -21,7 +22,8 @@ function WizzyWig(editableElements) {
     });
 }
 
-WizzyWig.console = '<div id="wizzywigConsole" class="hidden"><button>Save</button></div>';
+WizzyWig.console = '<div id="wizzywigConsole" class="hidden"><button class="save">Save</button></div>';
+WizzyWig.editableElements = "td, h1, h2, p";
 
 function cssUrl() {
     var url = $('script[src*="izzy"]').first().attr("src");

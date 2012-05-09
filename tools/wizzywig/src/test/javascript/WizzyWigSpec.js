@@ -6,13 +6,14 @@ describe('WizzyWig', function () {
             '<div id="html">' +
             '  <h1 id="mainHeading">Monkeys</h1><table><tr><td>Lions</td></tr></table><h2>Zebras</h2><p>Apples</p><div>Elephants</div>' +
             '</div>';
-    var EDITABLE_ELEMENTS = "td, h1, h2, p";
     var wizzyWig;
+    var saver;
 
     beforeEach(function () {
         $("body").append(HTML);
-        expect($(EDITABLE_ELEMENTS).length).toBeGreaterThan(0);
-        wizzyWig = new WizzyWig(EDITABLE_ELEMENTS);
+        expect($(WizzyWig.editableElements).length).toBeGreaterThan(0);
+        saver = new Saver();
+        wizzyWig = new WizzyWig(saver, WizzyWig.editableElements);
     });
 
     afterEach(function () {
@@ -21,7 +22,7 @@ describe('WizzyWig', function () {
     });
 
     it('Editable elements are identified on hover', function () {
-        $(EDITABLE_ELEMENTS).each(function () {
+        $(WizzyWig.editableElements).each(function () {
             expect($(this).hasClass("editable")).toBeTruthy();
         });
     });
@@ -62,6 +63,19 @@ describe('WizzyWig', function () {
     });
 
     it('We can save the page after we have modified it', function () {
+        spyOn(saver, 'save');
+
+        click("Monkeys");
+        click("Save");
+
+        expect(saver.save).toHaveBeenCalled();
+    });
+
+    it('We can insert tables for simple Concepts', function () {
+        expect(true).toBeFalsy();
+    });
+
+    it('We can insert tables for MultiRow Concepts', function () {
         expect(true).toBeFalsy();
     });
 
@@ -78,11 +92,13 @@ describe('WizzyWig', function () {
     });
 
     function click(text) {
-        elem(text).click();
+        var editableElement = elem(text);
+        var element = exists(editableElement) ? editableElement : $("." + text.toLowerCase());
+        element.click();
     }
 
     function elem(text) {
-        return $(EDITABLE_ELEMENTS).filter(function () {
+        return $(WizzyWig.editableElements).filter(function () {
             return $(this).text() == text;
         }).first();
     }
