@@ -1,6 +1,6 @@
 #!/bin/sh
 
-inputs=$(find src/main/javascript/ -name "*.js" | grep -v "min" | sed 's/^/ --js /')
+inputs=$(find src/main/javascript/ -name "*.js" | sort | grep -v "min" | sed 's/^/ --js /')
 compilationLevel="--compilation_level SIMPLE_OPTIMIZATIONS"
 #compilationLevel="--compilation_level ADVANCED_OPTIMIZATIONS"
 
