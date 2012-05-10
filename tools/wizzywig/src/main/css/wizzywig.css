@@ -3,7 +3,7 @@
 input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; border: none; resize: horizontal; }
 
 #wizzywigConsole {
-    /*height: 20px; overflow: hidden;*/
+    height: 20px; width: 20px; overflow: hidden;
     position: relative; left: -50%; text-align: center;
     border: thin solid grey; border-radius: 10px;
     background-color: #b0c4de; opacity: 0.7
@@ -12,7 +12,7 @@ input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; borde
 #wizzywigConsole .fixture { font-size: 120%; }
 #wizzywigConsole .fixture { font-size: 120%; }
 #wizzywigConsole button { margin: 0; }
-#wizzywigConsole:hover { height: auto; }
+#wizzywigConsole:hover { height: auto; width: auto; }
 
 h1, h2, h3, h4, h5, h6  { display: table; }
 
