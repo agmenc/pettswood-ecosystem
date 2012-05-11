@@ -10,10 +10,6 @@ function Inputter($elem) {
     $inputElement.val(originalText);
     originalStyles.apply($inputElement);
 
-    $inputElement.click(function($event) {
-        $event.stopPropagation();
-    });
-
     $inputElement.blur(function() {
         var parent = $inputElement.parent();
         var val = $inputElement.val();

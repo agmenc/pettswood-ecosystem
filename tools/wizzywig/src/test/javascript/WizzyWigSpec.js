@@ -22,6 +22,8 @@ describe('WizzyWig', function () {
     });
 
     it('Editable elements are identified on hover', function () {
+        $("#wizzywigConsole").remove();
+
         $(WizzyWig.editableElements).each(function () {
             expect($(this).hasClass("editable")).toBeTruthy();
         });
@@ -52,14 +54,6 @@ describe('WizzyWig', function () {
         click("Lions");
 
         expect(monkeys.html()).toEqual("Monkeys");
-    });
-
-    it('We see an editing console when an item is being edited', function () {
-        expect($("#wizzywigConsole").hasClass("hidden")).toBeTruthy();
-
-        click("Monkeys");
-
-        expect($("#wizzywigConsole").hasClass("hidden")).toBeFalsy();
     });
 
     it('We can save the page after we have modified it', function () {
