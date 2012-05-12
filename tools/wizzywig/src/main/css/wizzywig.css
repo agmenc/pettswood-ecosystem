@@ -6,14 +6,16 @@ input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; borde
     height: 20px; width: 20px; overflow: hidden;
     position: relative; left: -50%; text-align: center;
     border: thin solid grey; border-radius: 10px;
-    background-color: #b0c4de; opacity: 0.7
+    background-color: rgba(177, 197, 222, 0.7); text-shadow: 1px 1px 2px white;
 }
 #wizzywigConsole table { font-size: 70%; }
 #wizzywigConsole td { background-color: white; }
 #wizzywigConsole table.drag td { background-color: black; }
 #wizzywigConsole .fixture { font-size: 120%; }
-#wizzywigConsole .fixture { font-size: 120%; }
+#wizzywigConsole .fixture, #wizzywigConsole .names { background-color: #dddddd }
 #wizzywigConsole button { margin: 0; }
+#wizzywigConsole #plus { font-size: 20px; font-weight: bold; position: relative; top: -6px;; }
+#wizzywigConsole:hover #plus { display: none; }
 #wizzywigConsole:hover { height: auto; width: auto; }
 
 h1, h2, h3, h4, h5, h6  { display: table; }
@@ -24,5 +26,5 @@ h1, h2, h3, h4, h5, h6  { display: table; }
 .left { float: left; }
 .clear { clear: both; }
 .spaced { margin: 5px; }
-.drag { color: white; background-color: black; }
+/*.drag { color: white; background-color: black; }*/
 .dragTarget { border-top: thick solid red; }

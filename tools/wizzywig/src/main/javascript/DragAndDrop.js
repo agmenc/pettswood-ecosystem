@@ -1,55 +1,52 @@
 //
 
-function DragAndDrop(options) {
-    var self = this;
-    options.$draggableElements.each(function () { makeDraggable($(this)); });
-    options.$droppableElements.each(function () { makeDroppable($(this)); });
-    this.dragStart = options.dragStart ? options.dragStart : function($sourceElement) { $sourceElement.addClass("drag"); };
-    this.dragEnd = options.dragEnd ? options.dragEnd : function($sourceElement) { $sourceElement.removeClass("drag"); };
-    this.dragEnter = options.dragEnter ? options.dragEnter : function($targetElement) { $targetElement.addClass("dragTarget"); };
-    this.dragOver = options.dragOver ? options.dragOver : function($targetElement) { $targetElement.addClass("dragTarget"); };
-    this.dragLeave = options.dragLeave ? options.dragLeave : function($targetElement) { $targetElement.removeClass("dragTarget"); };
-    this.drop = options.dropHandler ? options.dropHandler : function ($sourceElement, $targetElement) {};
+function original($e) { return $e.originalEvent; }
 
-    var $source;
-
-    function makeDraggable($element) {
-        $element.attr("draggable", "true");
-        $element.bind('dragstart', handleDragStart);
-        $element.bind('dragend', handleDragEnd);
-    }
-
-    function makeDroppable($element) {
-        $element.bind('dragenter', handleDragEnter);
-        $element.bind('dragover', handleDragOver);
-        $element.bind('dragleave', handleDragLeave);
-        $element.bind('drop', handleDrop);
-    }
+function DragSource($element, options /* dragStart[function($element)], dragEnd[function($element)], effect["move", "copy" or "link"] */ ) {
+    if (!options) options = {};
+    $element.attr("draggable", "true");
+    $element.bind('dragstart', handleDragStart);
+    $element.bind('dragend', handleDragEnd);
 
     function handleDragStart(event) {
-        $source = $(this);
-        self.dragStart($source);
-        original(event).dataTransfer.effectAllowed = 'move';
+        original(event).dataTransfer.effectAllowed = options.effect ? options.effect : "move";
         original(event).dataTransfer.setData('text/html', "monkeys");
+        if (options.dragStart) options.dragStart($element);
     }
 
-    function handleDragOver(event) {
+    function handleDragEnd() {
+        $element.removeClass("drag");
+        if (options.dragEnd) options.dragEnd($element);
+    }
+}
+
+function DropTarget($element, options /* dragOver[function($element)], dragLeave[function($element)], drop[function($element, desiredEffect)] */ ) {
+    if (!options) options = {};
+    $element.bind('dragenter', handleDragEnterAndOver);
+    $element.bind('dragover', handleDragEnterAndOver);
+    $element.bind('dragleave', handleDragLeave);
+    $element.bind('drop', handleDrop);
+    var desiredEffect;
+
+    function handleDragEnterAndOver(event) {
+        desiredEffect = original(event).dataTransfer.dropEffect;
+        $element.addClass("dragTarget");
+        if (options.dragOver) options.dragOver($element);
+
         original(event).preventDefault();
-        original(event).dataTransfer.dropEffect = 'move';
-        self.dragOver($(this));
         return false;
     }
 
-    function handleDragEnd(event) { self.dragEnd($source); }
-    function handleDragEnter(event) { self.dragEnter($(this)); }
-    function handleDragLeave(event) { self.dragLeave($(this)); }
+    function handleDragLeave() {
+        $element.removeClass("dragTarget");
+        if (options.dragLeave) options.dragLeave($element);
+    }
 
     function handleDrop(event) {
-        var $target = $(this);
+        if (options.drop) options.drop($element, desiredEffect);
+        $element.removeClass("dragTarget");
+
         original(event).stopPropagation();
-        self.drop($source, $target);
         return false;
     }
-
-    function original($e) { return $e.originalEvent; }
 }

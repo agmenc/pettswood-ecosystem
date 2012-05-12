@@ -14,6 +14,7 @@ describe('DragAndDrop', function () {
     });
 
     it('Dragged nodes are styled differently', function () {
+        // TODO - CAS - 12/05/2012 - Fire drag start event to test this?
         expect($("#aThing").hasClass("drag")).toBeFalsy();
 
         dnd.dragStart($("#aThing"));

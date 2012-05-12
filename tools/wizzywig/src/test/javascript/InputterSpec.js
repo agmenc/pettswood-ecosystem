@@ -60,6 +60,10 @@ describe('Inputter', function () {
         expect(inputter().css("width")).toEqual("250px");
     });
 
+    it('Clicking the input field should not cause a new, empty, input fields to take its place', function () {
+        expect(true).toBeFalsy();
+    });
+
     function textNoKids($elem) {
         return $elem.contents().first().text();
     }

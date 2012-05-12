@@ -73,6 +73,14 @@ describe('WizzyWig', function () {
         expect(true).toBeFalsy();
     });
 
+    it('We cannot insert things into the WizzyWig console', function () {
+        expect(true).toBeFalsy();
+    });
+
+    it('We can drag existing tables and headers around', function () {
+        expect(true).toBeFalsy();
+    });
+
     it('We can tab from one editable element to the next', function () {
         expect(true).toBeFalsy();
     });

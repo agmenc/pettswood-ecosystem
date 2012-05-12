@@ -10,7 +10,7 @@ function Inputter($elem) {
     $inputElement.val(originalText);
     originalStyles.apply($inputElement);
 
-    $inputElement.blur(function() {
+    $inputElement.blur(function () {
         var parent = $inputElement.parent();
         var val = $inputElement.val();
 
