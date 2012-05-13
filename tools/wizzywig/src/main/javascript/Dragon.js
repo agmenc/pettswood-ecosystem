@@ -2,7 +2,7 @@
 
 function original($e) { return $e.originalEvent; }
 
-function DragSource($element, options /* dragStart[function($element)], dragEnd[function($element)], effect["move", "copy" or "link"] */ ) {
+function DragSource($element, options /* dragStart[function($element, effectAllowed)], dragEnd[function($element)], effect["move", "copy" or "link"] */ ) {
     if (!options) options = {};
     $element.attr("draggable", "true");
     $element.bind('dragstart', handleDragStart);
@@ -10,8 +10,7 @@ function DragSource($element, options /* dragStart[function($element)], dragEnd[
 
     function handleDragStart(event) {
         $element.addClass("drag");
-        if (options.dragStart) options.dragStart($element);
-        original(event).dataTransfer.effectAllowed = options.effect ? options.effect : "move";
+        if (options.dragStart) options.dragStart($element, options.effect ? options.effect : "move");
         original(event).dataTransfer.setData('text/html', "monkeys");
     }
 
@@ -27,10 +26,8 @@ function DropTarget($element, options /* dragOver[function($element)], dragLeave
     $element.bind('dragover', handleDragEnterAndOver);
     $element.bind('dragleave', handleDragLeave);
     $element.bind('drop', handleDrop);
-    var desiredEffect;
 
     function handleDragEnterAndOver(event) {
-        desiredEffect = original(event).dataTransfer.dropEffect;
         $element.addClass("dropTarget");
         if (options.dragOver) options.dragOver($element);
 
@@ -44,7 +41,7 @@ function DropTarget($element, options /* dragOver[function($element)], dragLeave
     }
 
     function handleDrop(event) {
-        if (options.drop) options.drop($element, desiredEffect);
+        if (options.drop) options.drop($element);
         $element.removeClass("dropTarget");
 
         original(event).stopPropagation();

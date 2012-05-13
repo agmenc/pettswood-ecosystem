@@ -2,6 +2,7 @@
 
 function DragonController(bless) {
     var $source;
+    var effect;
 
     this.makeMoveable = function($draggables) { makeDraggable($draggables, "move"); };
     this.makeCopyable = function($draggables) { makeDraggable($draggables, "copy"); };
@@ -14,11 +15,11 @@ function DragonController(bless) {
         $draggables.each(function () { new DragSource($(this), {dragStart:dragRecorder, effect: dragEffect}); });
     }
 
-    function dragRecorder($draggedElement) { $source = $draggedElement; }
+    function dragRecorder($draggedElement, effectAllowed) { $source = $draggedElement; effect = effectAllowed; }
 
     function dropHandler($target, dragEffect) {
         var $incoming = $source;
-        if (dragEffect === "copy") {
+        if (effect === "copy") {
             $incoming = $source.clone();
             $incoming.addClass("clear").removeClass("left");
             $incoming.find(WizzyWig.editableElements).each(function() { bless($(this)); });

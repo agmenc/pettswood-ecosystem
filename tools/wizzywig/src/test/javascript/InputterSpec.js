@@ -7,22 +7,22 @@ describe('Inputter', function () {
     });
 
     afterEach(function () {
-        inputter().remove();
+        inputters().remove();
         $("#monkeys").remove();
     });
 
     it('Each new Inputter creates an input field inside the target element', function () {
-        expect(exists(inputter())).toBeFalsy();
+        expect(exists(inputters())).toBeFalsy();
 
         new Inputter($("#monkeys"));
 
-        expect(exists(inputter())).toBeTruthy();
+        expect(exists(inputters())).toBeTruthy();
     });
 
     it('New inputters always grab the focus', function () {
         new Inputter($("#monkeys"));
 
-        expect(inputter().is(":focus")).toBeTruthy();
+        expect(inputters().is(":focus")).toBeTruthy();
     });
 
     it('The value of the input field is stolen from the parent object', function () {
@@ -31,13 +31,13 @@ describe('Inputter', function () {
         new Inputter($("#monkeys"));
 
         expect(textNoKids($("#monkeys"))).toEqual("");
-        expect(inputter().val()).toEqual("Monkeys");
+        expect(inputters().val()).toEqual("Monkeys");
     });
 
     it('Passes its value back to the parent object when it loses focus', function () {
         new Inputter($("#monkeys"));
 
-        inputter().blur();
+        inputters().blur();
 
         expect(textNoKids($("#monkeys"))).toEqual("Monkeys");
     });
@@ -45,9 +45,9 @@ describe('Inputter', function () {
     it('Removes the input field when it loses focus', function () {
         new Inputter($("#monkeys"));
 
-        $(inputter()).blur();
+        $(inputters()).blur();
 
-        expect(exists(inputter())).toBeFalsy();
+        expect(exists(inputters())).toBeFalsy();
     });
 
     it('The input field takes the dimensions of the parent field', function () {
@@ -56,19 +56,27 @@ describe('Inputter', function () {
 
         new Inputter($("#monkeys"));
 
-        expect(inputter().css("height")).toEqual("150px");
-        expect(inputter().css("width")).toEqual("250px");
+        expect(inputters().css("height")).toEqual("150px");
+        expect(inputters().css("width")).toEqual("250px");
     });
 
     it('Clicking the input field should not cause a new, empty, input field to take its place', function () {
-        expect(true).toBeFalsy();
+        expect($("#monkeys").text()).toEqual("Monkeys");
+
+        $("#monkeys").click(function () { if (!exists($("input.inputter"))) new Inputter($("#monkeys")); });
+        $("#monkeys").click();
+        $("#monkeys").click();
+        $("#monkeys").click();
+
+        inputters().blur();
+        expect($("#monkeys").text()).toEqual("Monkeys");
     });
 
     function textNoKids($elem) {
         return $elem.contents().first().text();
     }
 
-    function inputter() {
+    function inputters() {
         return $("input.inputter");
     }
 });

@@ -23,7 +23,7 @@ function WizzyWig(saver, editableElements) {
     function makeEditable($element) {
         if (!$element.hasClass("editable")) {
             $element.addClass("editable");
-            $element.click(function () { new Inputter($element); });
+            $element.click(Inputter.acceptInputFor($element));
         }
     }
 }
