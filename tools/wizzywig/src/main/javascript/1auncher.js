@@ -12,5 +12,5 @@ $(document).ready(function() {
 
 function cssUrl() {
     var url = $('script[src*="izzy"]').first().attr("src");
-    return url.replace(/main\/javascript\/.*/g, "main/css/wizzywig.css");
+    return url.replace(/\/javascript\/.*/g, "/css/wizzywig.css");
 }

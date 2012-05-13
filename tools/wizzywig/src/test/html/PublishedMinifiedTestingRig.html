@@ -4,13 +4,8 @@
     <title>Published and Minified WizzyWig Test Rig</title>
     <link rel="stylesheet" type="text/css" href="../css/pettswood.css"/>
 
-    <style>
-        @import url("http://agmen-smith.co.uk/wizzywig/styles.css");
-        @import url("https://raw.github.com/agmenc/pettswood-ecosystem/master/tools/wizzywig/src/main/css/wizzywig.css");
-    </style>
-
-    <script type="text/javascript" src="https://raw.github.com/agmenc/pettswood-ecosystem/master/tools/wizzywig/src/main/javascript/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/agmenc/pettswood-ecosystem/master/tools/wizzywig/src/main/javascript/wizzywig.min.js"></script>
+    <script type="text/javascript" src="http://agmen-smith.co.uk/wizzywig/javascript/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://agmen-smith.co.uk/wizzywig/javascript/wizzywig.min.js"></script>
 </head>
 <body>
 <table class="mixins">
@@ -21,18 +16,6 @@
     </tr>
 </table>
 <h1>Published and Minified WizzyWig Test Rig</h1>
-<h2>Fix CSS problem</h2>
-<ul>
-    <li>FAIL - Try using a hard link</li>
-    <li>WORKS - http://agmen-smith.co.uk/wizzywig/styles.css - Try a different CDN, e.g. www.agmen-smith.co.uk. Use this to host *both* files (min.js and .css)</li>
-    <li>FAIL - Try using an @import</li>
-    <li>Investigate github's use of x-frame-options - can we turn it off?</li>
-</ul>
-<p>X-Content-Type-Options	nosniff
-    X-RateLimit-Limit	100
-    X-RateLimit-Remaining	100
-    X-Runtime	9
-    x-frame-options	deny</p>
 <h2>Chemistry</h2>
 <table>
     <tr>

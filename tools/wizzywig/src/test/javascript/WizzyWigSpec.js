@@ -77,6 +77,14 @@ describe('WizzyWig', function () {
         });
     });
 
+    it('We can add columns to a table', function () {
+        expect(true).toBeFalsy();
+    });
+
+    it('We can add rows to a table', function () {
+        expect(true).toBeFalsy();
+    });
+
     it('We can tab from one editable element to the next', function () {
         expect(true).toBeFalsy();
     });
