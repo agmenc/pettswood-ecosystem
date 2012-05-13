@@ -57,7 +57,7 @@ describe('WizzyWig', function () {
     });
 
     it('We can save the page after we have modified it', function () {
-        spyOn(saver, 'save');
+        spyOn(saver, 'save').andReturn(false);
 
         click("Monkeys");
         click("Save");
@@ -65,20 +65,16 @@ describe('WizzyWig', function () {
         expect(saver.save).toHaveBeenCalled();
     });
 
-    it('We can insert tables for simple Concepts', function () {
-        expect(true).toBeFalsy();
-    });
-
-    it('We can insert tables for MultiRow Concepts', function () {
-        expect(true).toBeFalsy();
-    });
-
-    it('We cannot insert things into the WizzyWig console', function () {
-        expect(true).toBeFalsy();
+    it('Concepts can be dragged from the console', function () {
+        $("#wizzywigConsole table").each(function () {
+            expect($(this).attr("draggable")).toEqual("true");
+        });
     });
 
     it('We can drag existing tables and headers around', function () {
-        expect(true).toBeFalsy();
+        $("#html").find(WizzyWig.draggableElements).each(function () {
+            expect($(this).attr("draggable")).toEqual("true");
+        });
     });
 
     it('We can tab from one editable element to the next', function () {
@@ -86,10 +82,6 @@ describe('WizzyWig', function () {
     });
 
     it('Enter/Return moves to the next editable element', function () {
-        expect(true).toBeFalsy();
-    });
-
-    it('Only leaf elements are editable', function () {
         expect(true).toBeFalsy();
     });
 

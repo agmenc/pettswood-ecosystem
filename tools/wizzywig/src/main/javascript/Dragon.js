@@ -9,9 +9,10 @@ function DragSource($element, options /* dragStart[function($element)], dragEnd[
     $element.bind('dragend', handleDragEnd);
 
     function handleDragStart(event) {
+        $element.addClass("drag");
+        if (options.dragStart) options.dragStart($element);
         original(event).dataTransfer.effectAllowed = options.effect ? options.effect : "move";
         original(event).dataTransfer.setData('text/html', "monkeys");
-        if (options.dragStart) options.dragStart($element);
     }
 
     function handleDragEnd() {
@@ -30,7 +31,7 @@ function DropTarget($element, options /* dragOver[function($element)], dragLeave
 
     function handleDragEnterAndOver(event) {
         desiredEffect = original(event).dataTransfer.dropEffect;
-        $element.addClass("dragTarget");
+        $element.addClass("dropTarget");
         if (options.dragOver) options.dragOver($element);
 
         original(event).preventDefault();
@@ -38,13 +39,13 @@ function DropTarget($element, options /* dragOver[function($element)], dragLeave
     }
 
     function handleDragLeave() {
-        $element.removeClass("dragTarget");
+        $element.removeClass("dropTarget");
         if (options.dragLeave) options.dragLeave($element);
     }
 
     function handleDrop(event) {
         if (options.drop) options.drop($element, desiredEffect);
-        $element.removeClass("dragTarget");
+        $element.removeClass("dropTarget");
 
         original(event).stopPropagation();
         return false;

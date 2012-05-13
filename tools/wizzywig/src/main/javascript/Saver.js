@@ -28,5 +28,6 @@ function Saver() {
         window.open(uriContent, 'Save');
         $event.stopPropagation();
         $event.preventDefault();
+        return false;
     };
 }

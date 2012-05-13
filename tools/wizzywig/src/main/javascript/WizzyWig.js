@@ -12,12 +12,12 @@ function exists($thing) {
 
 function WizzyWig(saver, editableElements) {
     $(editableElements).each(function () { makeEditable($(this)); });
-    var dndController = new DragAndDropController(makeEditable);
+    var dndController = new DragonController(makeEditable);
     dndController.makeMoveable($(WizzyWig.draggableElements));
-    dndController.makeDroppable($(WizzyWig.draggableElements));
+    dndController.makeDropTarget($(WizzyWig.draggableElements));
 
     $("body").append(WizzyWig.console);
-    $("#wizzywigConsole .save").click(saver.save);
+    $("#wizzywigConsole .save").click(function($event) { saver.save($event); });
     dndController.makeCopyable($("#wizzywigConsole table"));
 
     function makeEditable($element) {
