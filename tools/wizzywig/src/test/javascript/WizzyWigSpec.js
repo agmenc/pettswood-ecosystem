@@ -4,16 +4,23 @@ describe('WizzyWig', function () {
 
     var HTML = '' +
             '<div id="html">' +
-            '  <h1 id="mainHeading">Monkeys</h1><table><tr><td>Lions</td></tr></table><h2>Zebras</h2><p>Apples</p><div>Elephants</div>' +
+            '  <h1 id="mainHeading">Monkeys</h1><table><tr><td id="grrr">Lions</td></tr></table><h2>Zebras</h2><p>Apples</p><div>Elephants</div>' +
             '</div>';
-    var wizzyWig;
-    var saver;
+    var wizzyWig, saver, dragonController;
+
+    var tableEditor = new function() {
+        var self = this;
+        this.edit = function(element) {
+            self.element = element;
+        }
+    };
 
     beforeEach(function () {
         $("body").append(HTML);
         expect($(WizzyWig.editableElements).length).toBeGreaterThan(0);
         saver = new Saver();
-        wizzyWig = new WizzyWig(saver, WizzyWig.editableElements);
+        dragonController = new DragonController();
+        wizzyWig = new WizzyWig(WizzyWig.editableElements, saver, tableEditor, dragonController);
     });
 
     afterEach(function () {
@@ -57,7 +64,7 @@ describe('WizzyWig', function () {
     });
 
     it('We can save the page after we have modified it', function () {
-        spyOn(saver, 'save').andReturn(false);
+        spyOn(saver, 'save');
 
         click("Monkeys");
         click("Save");
@@ -77,12 +84,10 @@ describe('WizzyWig', function () {
         });
     });
 
-    it('We can add columns to a table', function () {
-        expect(true).toBeFalsy();
-    });
+    it('Delegates table editing', function () {
+        click("Lions");
 
-    it('We can add rows to a table', function () {
-        expect(true).toBeFalsy();
+        expect(tableEditor.element.attr("id")).toEqual("grrr");
     });
 
     it('We can tab from one editable element to the next', function () {

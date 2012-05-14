@@ -21,11 +21,4 @@ function Inputter($elem) {
     asPlain($inputElement).focus();
 }
 
-Inputter.acceptInputFor = function ($element) {
-    return function () {
-        if (!exists($element.find("input.inputter"))) new Inputter($element);
-        return true;
-    }
-};
-
 Inputter.inputElement = '<input class="inputter" name="inputter" type="text" draggable="false" value="@original text@">';

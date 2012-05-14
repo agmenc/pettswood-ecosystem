@@ -1,6 +1,6 @@
 //
 
-describe('Drag', function () {
+describe('Just Drag', function () {
 
     var called = false;
     var handler = function () { called = true; };

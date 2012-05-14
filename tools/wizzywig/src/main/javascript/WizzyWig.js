@@ -10,11 +10,11 @@ function exists($thing) {
     return $thing.size() > 0;
 }
 
-function WizzyWig(saver, editableElements) {
+function WizzyWig(editableElements, saver, tableEditor, dragonController) {
     $(editableElements).each(function () { makeEditable($(this)); });
     var dndController = new DragonController(makeEditable);
     dndController.makeMoveable($(WizzyWig.draggableElements));
-    dndController.makeDropTarget($(WizzyWig.draggableElements));
+    dndController.makeDropTarget($(WizzyWig.draggableElements), makeEditable);
 
     $("body").append(WizzyWig.console);
     $("#wizzywigConsole .save").click(function($event) { saver.save($event); });
@@ -23,7 +23,10 @@ function WizzyWig(saver, editableElements) {
     function makeEditable($element) {
         if (!$element.hasClass("editable")) {
             $element.addClass("editable");
-            $element.click(Inputter.acceptInputFor($element));
+            $element.click(function() {
+                tableEditor.edit($element);
+                if (!exists($element.find("input.inputter"))) new Inputter($element);
+            });
         }
     }
 }
@@ -35,4 +38,8 @@ WizzyWig.saveButton = '<button class="save clear left">Save</button>';
 WizzyWig.helpButton = '<button class="help clear left">Help</button>';
 WizzyWig.simpleConcept = '<table id="simpleConcept" class="left"><tr><td class="names">Simple Concept</td><td>x</td><td class="names">does</td><td>y</td></tr></table>';
 WizzyWig.multiRowConcept = '<table class="left"><tr><td class="fixture">MultiRow Concept</td></tr><tr class="names"><td>heading 1</td><td>heading 2</td></tr><tr><td>data 1</td><td>data 2</td></tr></table>';
-WizzyWig.console = '<div class="middleFixed"><div id="wizzywigConsole"><span id="plus">+</span><div class="left spaced" style="margin-top: 20px; ">' + WizzyWig.saveButton + WizzyWig.helpButton + '</div>' + WizzyWig.simpleConcept + WizzyWig.multiRowConcept + WizzyWig.clearDiv + '</div></div>';
+WizzyWig.console = '<div class="middleFixed"><div id="wizzywigConsole"><span id="plus">w</span><div class="left spaced" style="margin-top: 20px; ">' + WizzyWig.saveButton + WizzyWig.helpButton + '</div>' + WizzyWig.simpleConcept + WizzyWig.multiRowConcept + WizzyWig.clearDiv + '</div></div>';
+
+WizzyWig.knownBugs = 'These features are known to misbehave in certain browsers:\n' +
+        ' * Input fields don\'t respond to mouse clicks (Firefox)\n' +
+        '';

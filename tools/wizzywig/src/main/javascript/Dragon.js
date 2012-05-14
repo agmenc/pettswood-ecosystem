@@ -20,7 +20,7 @@ function DragSource($element, options /* dragStart[function($element, effectAllo
     }
 }
 
-function DropTarget($element, options /* dragOver[function($element)], dragLeave[function($element)], drop[function($element, desiredEffect)] */ ) {
+function DropTarget($element, options /* dragOver[function($element)], dragLeave[function($element)], drop[function($element)] */ ) {
     if (!options) options = {};
     $element.bind('dragenter', handleDragEnterAndOver);
     $element.bind('dragover', handleDragEnterAndOver);

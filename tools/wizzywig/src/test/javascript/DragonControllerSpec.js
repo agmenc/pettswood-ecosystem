@@ -5,7 +5,12 @@ describe('DragonController', function () {
     var controller;
 
     beforeEach(function () {
-        $("body").append('<div id="all"><div id="pool">Pool</div><div id="monkeys">Monkeys</div><div id="elephants">Elephants</div></div>');
+        $("body").append('' +
+                '<div id="all">' +
+                '<div id="pool">Pool</div>' +
+                '<div id="monkeys">Monkeys</div>' +
+                '<div id="elephants">Elephants</div>' +
+                '</div>');
         controller = new DragonController(function() {});
     });
 
@@ -20,8 +25,8 @@ describe('DragonController', function () {
         fire($("#elephants"), "dragstart");
         fire($("#pool"), "drop");
 
-        expect($("#all").html()).toEqual('' +
-                '<div class="drag" draggable="true" id="elephants">Elephants</div>' +
+        expect(decluttered($("#all")).html()).toEqual('' +
+                '<div id="elephants">Elephants</div>' +
                 '<div id="pool">Pool</div>' +
                 '<div id="monkeys">Monkeys</div>')
     });
@@ -33,4 +38,10 @@ describe('DragonController', function () {
     it('Non-header rows of MultiRow tables are drop targets', function () {
         expect(true).toBeFalsy();
     });
+
+    function decluttered($element) {
+        $element.children().removeAttr("class");
+        $element.children().removeAttr("draggable");
+        return $element;
+    }
 });

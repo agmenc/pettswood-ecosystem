@@ -1,15 +1,12 @@
 //
 
-function DragonController(bless) {
+function DragonController() {
     var $source;
     var effect;
+    var bless;
 
     this.makeMoveable = function($draggables) { makeDraggable($draggables, "move"); };
     this.makeCopyable = function($draggables) { makeDraggable($draggables, "copy"); };
-
-    this.makeDropTarget = function($targets) {
-        $targets.each(function () { new DropTarget($(this), {drop: dropHandler}); });
-    };
 
     function makeDraggable($draggables, dragEffect) {
         $draggables.each(function () { new DragSource($(this), {dragStart:dragRecorder, effect: dragEffect}); });
@@ -17,7 +14,12 @@ function DragonController(bless) {
 
     function dragRecorder($draggedElement, effectAllowed) { $source = $draggedElement; effect = effectAllowed; }
 
-    function dropHandler($target, dragEffect) {
+    this.makeDropTarget = function($targets, blessDroppedElements) {
+        bless = blessDroppedElements;
+        $targets.each(function () { new DropTarget($(this), {drop: dropHandler}); });
+    };
+
+    function dropHandler($target) {
         var $incoming = $source;
         if (effect === "copy") {
             $incoming = $source.clone();
