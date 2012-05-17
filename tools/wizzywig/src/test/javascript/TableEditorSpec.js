@@ -2,40 +2,100 @@
 
 describe('TableEditor', function () {
 
-    var HTML = '' +
-            '<div id="html">' +
-            '  <h1 id="mainHeading">Monkeys</h1><table><tr><td>Lions</td></tr></table><h2>Zebras</h2><p>Apples</p><div>Elephants</div>' +
-            '</div>';
+    var testTable = '' +
+            '<table class="testTable" id="testTable">' +
+            '    <tr id="title">' +
+            '        <td colspan="2">Animals</td>' +
+            '    </tr>' +
+            '    <tr id="headers">' +
+            '        <td>Prey</td>' +
+            '        <td>Food</td>' +
+            '        <td>Predator</td>' +
+            '    </tr>' +
+            '    <tr>' +
+            '        <td id="monkeys">Monkeys</td>' +
+            '        <td>Nuts</td>' +
+            '        <td>Lions</td>' +
+            '    </tr>' +
+            '</table>';
     var tableEditor;
 
     beforeEach(function () {
-        $("body").append(HTML);
-        expect($(WizzyWig.editableElements).length).toBeGreaterThan(0);
+        $("head").append('<link rel="stylesheet" type="text/css" href="../../main/css/wizzywig.css"/>');
+        $("body").append(testTable);
         tableEditor = new TableEditor();
     });
 
     afterEach(function () {
-        $("#html").remove();
-        $("#wizzywigConsole").remove();
+        $(".testTable").remove();
+        $("#wizzywigTableEditor").remove();
     });
 
-    it('We can add columns to a table', function () {
-        expect(true).toBeFalsy();
+    it('Clicking on a table cell causes the table editing console to be displayed', function () {
+        expect($("#wizzywigTableEditor").is(":visible")).toBeFalsy();
+
+        tableEditor.edit($("#monkeys"));
+
+        expect($("#wizzywigTableEditor").is(":visible")).toBeTruthy();
+    });
+
+    it('The middle of the editing console is level with the middle of the selected table cell', function () {
+        tableEditor.edit($("#monkeys"));
+
+        expect(middle($("#wizzywigTableEditor"))).toEqual(middle($("#monkeys")));
+    });
+
+    it('The left of the editing console is to the right of the table', function () {
+        tableEditor.edit($("#monkeys"));
+
+        expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")));
+    });
+
+    it('We can add columns to the right', function () {
+        expect($("#headers td").length).toEqual(3);
+
+        click("Food");
+        $("#add .r").click();
+
+        expect($("#headers td").length).toEqual(4);
+    });
+
+    it('After adding a column, the left of the editing console moves to the right of the table', function () {
+        click("Food");
+        $("#add .l").click();
+
+        expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")));
+    });
+
+    it('We can add columns to the left', function () {
+        expect($("#headers td").length).toEqual(3);
+
+        click("Food");
+        $("#add .l").click();
+
+        expect($("#headers td").length).toEqual(4);
+    });
+
+    it('We ignore titles of MultiRow tables when adding columns', function () {
+        expect($("#title td").length).toEqual(1);
+
+        click("Food");
+        $("#add .l").click();
+
+        expect($("#title td").length).toEqual(1);
     });
 
     it('We can add rows to a table', function () {
-        expect(true).toBeFalsy();
+        expect($("#testTable tr").length).toEqual(3);
+
+        click("Predator");
+        $("#add .u").click();
+
+        expect($("#testTable tr").length).toEqual(4);
     });
 
-    function click(text) {
-        var editableElement = elem(text);
-        var element = exists(editableElement) ? editableElement : $("." + text.toLowerCase());
-        element.click();
-    }
-
-    function elem(text) {
-        return $(WizzyWig.editableElements).filter(function () {
-            return $(this).text() == text;
-        }).first();
+    function click(cellText) {
+        var tableCell = $("#testTable td").filter(function() { return $(this).text() == cellText; }).first();
+        tableEditor.edit(tableCell);
     }
 });
