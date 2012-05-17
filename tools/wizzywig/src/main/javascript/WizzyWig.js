@@ -10,12 +10,14 @@ function exists($thing) {
     return $thing.size() > 0;
 }
 
-function middle($element) { return $element.offset().top + ($element.outerHeight()/2); }
+function whole(num) { return parseInt(num.toFixed(0)); }
+function middle($element) { return $element.offset().top + whole($element.outerHeight()/2); }
 function left($element) { return $element.offset().left; }
 function right($element) { return $element.offset().left + $element.outerWidth(); }
 
 function WizzyWig(editableElements, saver, tableEditor, dragonController) {
     $(editableElements).each(function () { makeEditable($(this)); });
+    tableEditor.addBlesser(makeEditable);
     dragonController.makeMoveable($(WizzyWig.draggableElements));
     dragonController.makeDropTarget($(WizzyWig.draggableElements), makeEditable);
 
@@ -24,13 +26,12 @@ function WizzyWig(editableElements, saver, tableEditor, dragonController) {
     dragonController.makeCopyable($("#wizzywigConsole table"));
 
     function makeEditable($element) {
-        if (!$element.hasClass("editable")) {
-            $element.addClass("editable");
-            $element.click(function() {
-                tableEditor.edit($element);
-                if (!exists($element.find("input.inputter"))) new Inputter($element);
-            });
-        }
+        $element.addClass("editable");
+        $element.click(function () {
+            tableEditor.edit($element);
+            if (!exists($element.find("input.inputter"))) new Inputter($element);
+        });
+        return $element;
     }
 }
 

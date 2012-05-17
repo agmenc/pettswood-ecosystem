@@ -10,9 +10,8 @@ describe('WizzyWig', function () {
 
     var tableEditor = new function() {
         var self = this;
-        this.edit = function(element) {
-            self.element = element;
-        }
+        this.edit = function(element) { self.element = element; };
+        this.addBlesser = function(f) { self.bless = f; };
     };
 
     beforeEach(function () {

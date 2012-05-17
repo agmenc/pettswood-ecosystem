@@ -3,11 +3,14 @@
 function TableEditor() {
     var $currentElement;
     var $currentTable;
+    var bless;
 
     this.edit = function ($element) {
         var $table = $element.parents("table").first();
         if (exists($table)) showConsole($table, $element);
     };
+
+    this.addBlesser = function (blesserFunction) { bless = blesserFunction; };
 
     function showConsole($table, $element) {
         if (!exists($("#wizzywigTableEditor"))) { buildConsole(); }
@@ -24,30 +27,22 @@ function TableEditor() {
     function buildConsole() {
         $("body").append(TableEditor.console);
         $("#wizzywigTableEditor").hide();
-        $("#add .r").click(columnRight);
-        $("#add .l").click(columnLeft);
+        $("#wizzywigTableEditor .addColumn").click(copyColumn);
+        $("#wizzywigTableEditor .addRow").click(copyRow);
     }
 
-    function columnRight() {
+    function copyRow() {
+        var $row = $currentElement.parent();
+        var $newRow = $row.clone();
+        $newRow.children().each(function () { bless($(this))} );
+        $row.after($newRow);
+    }
+
+    function copyColumn() {
         var column = index($currentElement) + 1;
         $currentTable.find("tr td:nth-child(" + column + ")").each(function() {
-            $(this).after($(this).clone());
+            $(this).after(bless($(this).clone()));
         });
-    }
-
-    function columnLeft() {
-        var column = index($currentElement) + 1;
-        $currentTable.find("tr td:nth-child(" + column + ")").each(function() {
-            $(this).before($(this).clone());
-        });
-    }
-
-    function toLeft($element) { $element.before($element.clone()); }
-    function toRight($element) { $element.after($element.clone()); }
-
-    function copyColumn(copyCells) {
-        var column = index($currentElement) + 1;
-        $currentTable.find("tr td:nth-child(" + column + ")").each(function() { copyCells($(this)); });
     }
 
     function index($element) {
@@ -74,4 +69,10 @@ TableEditor.buttonPad = '' +
         '   </tr>' +
         '</table>';
 
-TableEditor.console = '<div id="wizzywigTableEditor"><div id="add" class="console circle">' + TableEditor.buttonPad + '</div></div>';
+WizzyWig.addRowButton = '<button class="addRow clear right">Add Row</button>';
+WizzyWig.addColumnButton = '<button class="addColumn clear right">Add Column</button>';
+WizzyWig.deleteRowButton = '<button class="deleteRow clear left">Delete Row</button>';
+WizzyWig.deleteColumnButton = '<button class="deleteColumn clear left">Delete Column</button>';
+TableEditor.add = '<div class="spaced left">' + WizzyWig.addRowButton + WizzyWig.addColumnButton + '</div>';
+TableEditor.deleteCells = '<div class="spaced left">' + WizzyWig.deleteRowButton + WizzyWig.deleteColumnButton + '</div>';
+TableEditor.console = '<div id="wizzywigTableEditor">' + TableEditor.add + '<div id="add" class="console circle left">' + TableEditor.buttonPad + '</div>' + TableEditor.deleteCells + '</div>';

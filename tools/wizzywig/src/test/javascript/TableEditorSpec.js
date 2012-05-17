@@ -5,17 +5,17 @@ describe('TableEditor', function () {
     var testTable = '' +
             '<table class="testTable" id="testTable">' +
             '    <tr id="title">' +
-            '        <td colspan="2">Animals</td>' +
+            '        <td colspan="2" class="editable">Animals</td>' +
             '    </tr>' +
             '    <tr id="headers">' +
-            '        <td>Prey</td>' +
-            '        <td>Food</td>' +
-            '        <td>Predator</td>' +
+            '        <td class="editable">Prey</td>' +
+            '        <td class="editable">Food</td>' +
+            '        <td class="editable">Predator</td>' +
             '    </tr>' +
             '    <tr>' +
-            '        <td id="monkeys">Monkeys</td>' +
-            '        <td>Nuts</td>' +
-            '        <td>Lions</td>' +
+            '        <td id="monkeys" class="editable">Monkeys</td>' +
+            '        <td class="editable">Nuts</td>' +
+            '        <td class="editable">Lions</td>' +
             '    </tr>' +
             '</table>';
     var tableEditor;
@@ -24,6 +24,7 @@ describe('TableEditor', function () {
         $("head").append('<link rel="stylesheet" type="text/css" href="../../main/css/wizzywig.css"/>');
         $("body").append(testTable);
         tableEditor = new TableEditor();
+        tableEditor.addBlesser(function(x) { return x });
     });
 
     afterEach(function () {
@@ -51,11 +52,11 @@ describe('TableEditor', function () {
         expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")));
     });
 
-    it('We can add columns to the right', function () {
+    it('We can add duplicate columns to a table', function () {
         expect($("#headers td").length).toEqual(3);
 
         click("Food");
-        $("#add .r").click();
+        $("#wizzywigTableEditor .addColumn").click();
 
         expect($("#headers td").length).toEqual(4);
     });
@@ -67,29 +68,29 @@ describe('TableEditor', function () {
         expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")));
     });
 
-    it('We can add columns to the left', function () {
-        expect($("#headers td").length).toEqual(3);
-
+    it('After adding a column, new cells are blessed', function () {
         click("Food");
         $("#add .l").click();
 
-        expect($("#headers td").length).toEqual(4);
+        $("#testTable td").each(function() {
+            expect($(this).hasClass("editable")).toBeTruthy();
+        });
     });
 
     it('We ignore titles of MultiRow tables when adding columns', function () {
         expect($("#title td").length).toEqual(1);
 
-        click("Food");
-        $("#add .l").click();
+        click("Prey");
+        $("#wizzywigTableEditor .addColumn").click();
 
         expect($("#title td").length).toEqual(1);
     });
 
-    it('We can add rows to a table', function () {
+    it('We can add duplicate rows to a table', function () {
         expect($("#testTable tr").length).toEqual(3);
 
         click("Predator");
-        $("#add .u").click();
+        $("#wizzywigTableEditor .addRow").click();
 
         expect($("#testTable tr").length).toEqual(4);
     });
