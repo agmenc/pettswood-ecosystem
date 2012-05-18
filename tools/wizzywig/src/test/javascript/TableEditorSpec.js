@@ -4,7 +4,7 @@ describe('TableEditor', function () {
 
     var testTable = '' +
             '<table class="testTable" id="testTable">' +
-            '    <tr id="title">' +
+            '    <tr id="title" class="fixture">' +
             '        <td colspan="2" class="editable">Animals</td>' +
             '    </tr>' +
             '    <tr id="headers">' +
@@ -55,10 +55,13 @@ describe('TableEditor', function () {
     it('We can add duplicate columns to a table', function () {
         expect($("#headers td").length).toEqual(3);
 
-        click("Food");
+        click("Predator");
         $("#wizzywigTableEditor .addColumn").click();
 
-        expect($("#headers td").length).toEqual(4);
+        click("Nuts");
+        $("#wizzywigTableEditor .addColumn").click();
+
+        expect($("#headers td").length).toEqual(5);
     });
 
     it('After adding a column, the left of the editing console moves to the right of the table', function () {
@@ -93,6 +96,38 @@ describe('TableEditor', function () {
         $("#wizzywigTableEditor .addRow").click();
 
         expect($("#testTable tr").length).toEqual(4);
+    });
+
+    it('We can delete rows from a table', function () {
+        expect($("#testTable tr").length).toEqual(3);
+
+        click("Predator");
+        $("#wizzywigTableEditor .deleteRow").click();
+
+        expect($("#testTable tr").length).toEqual(2);
+    });
+
+    it('We can delete columns from a table', function () {
+        expect($("#headers td").length).toEqual(3);
+
+        click("Nuts");
+        $("#wizzywigTableEditor .deleteColumn").click();
+
+        expect($("#headers td").length).toEqual(2);
+    });
+
+    it('Deleting all the cells in a table deletes the table as well', function () {
+        expect($("#headers td").length).toEqual(3);
+
+        click("Monkeys");
+        $("#wizzywigTableEditor .deleteColumn").click();
+        $("#wizzywigTableEditor .deleteColumn").click();
+        $("#wizzywigTableEditor .deleteColumn").click();
+
+        click("Animals");
+        $("#wizzywigTableEditor .deleteRow").click();
+
+        expect(exists($("#testTable"))).toBeFalsy();
     });
 
     function click(cellText) {

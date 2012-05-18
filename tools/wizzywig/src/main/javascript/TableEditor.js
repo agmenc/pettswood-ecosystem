@@ -29,6 +29,8 @@ function TableEditor() {
         $("#wizzywigTableEditor").hide();
         $("#wizzywigTableEditor .addColumn").click(copyColumn);
         $("#wizzywigTableEditor .addRow").click(copyRow);
+        $("#wizzywigTableEditor .deleteColumn").click(deleteColumn);
+        $("#wizzywigTableEditor .deleteRow").click(deleteRow);
     }
 
     function copyRow() {
@@ -38,11 +40,21 @@ function TableEditor() {
         $row.after($newRow);
     }
 
-    function copyColumn() {
-        var column = index($currentElement) + 1;
-        $currentTable.find("tr td:nth-child(" + column + ")").each(function() {
-            $(this).after(bless($(this).clone()));
-        });
+    function deleteRow() {
+        $currentElement.parent().remove();
+        if (!exists($currentTable.find("td"))) $currentTable.remove();
+    }
+
+    function copyColumn() { cellsInColumn(function ($cell) { $cell.after(bless($cell.clone())); }); }
+    function deleteColumn() { cellsInColumn(function ($cell) { $cell.remove(); }); }
+
+    function cellsInColumn(f) {
+        var column = index($currentElement);
+        $currentTable.find("tr")
+            .filter(function () { return !$(this).hasClass("fixture"); })
+            .each(function () {
+                f($($(this).children("td").get(column)));
+            });
     }
 
     function index($element) {
@@ -75,4 +87,5 @@ WizzyWig.deleteRowButton = '<button class="deleteRow clear left">Delete Row</but
 WizzyWig.deleteColumnButton = '<button class="deleteColumn clear left">Delete Column</button>';
 TableEditor.add = '<div class="spaced left">' + WizzyWig.addRowButton + WizzyWig.addColumnButton + '</div>';
 TableEditor.deleteCells = '<div class="spaced left">' + WizzyWig.deleteRowButton + WizzyWig.deleteColumnButton + '</div>';
-TableEditor.console = '<div id="wizzywigTableEditor">' + TableEditor.add + '<div id="add" class="console circle left">' + TableEditor.buttonPad + '</div>' + TableEditor.deleteCells + '</div>';
+TableEditor.circleConsole = '<div id="add" class="console circle left">' + TableEditor.buttonPad + '</div>';
+TableEditor.console = '<div id="wizzywigTableEditor">' + TableEditor.add + TableEditor.deleteCells + '</div>';
