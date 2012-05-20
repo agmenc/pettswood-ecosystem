@@ -130,6 +130,24 @@ describe('TableEditor', function () {
         expect(exists($("#testTable"))).toBeFalsy();
     });
 
+    it('We can duplicate tables', function () {
+        expect($(".testTable").length).toEqual(1);
+
+        click("Nuts");
+        $("#wizzywigTableEditor .copyTable").click();
+
+        expect($(".testTable").length).toEqual(2);
+    });
+
+    it('We can delete tables', function () {
+        expect(exists($(".testTable"))).toBeTruthy();
+
+        click("Nuts");
+        $("#wizzywigTableEditor .deleteTable").click();
+
+        expect(exists($(".testTable"))).toBeFalsy();
+    });
+
     function click(cellText) {
         var tableCell = $("#testTable td").filter(function() { return $(this).text() == cellText; }).first();
         tableEditor.edit(tableCell);
