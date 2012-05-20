@@ -40,9 +40,10 @@ WizzyWig.draggableElements = "table, h1, h2, p";
 WizzyWig.clearDiv = '<div class="clear"/>';
 WizzyWig.saveButton = '<button class="save clear left">Save</button>';
 WizzyWig.helpButton = '<button class="help clear left">Help</button>';
-WizzyWig.simpleConcept = '<table id="simpleConcept" class="left"><tr><td class="names">Simple Concept</td><td>x</td><td class="names">does</td><td>y</td></tr></table>';
-WizzyWig.multiRowConcept = '<table class="left"><tr><td class="fixture">MultiRow Concept</td></tr><tr class="names"><td>heading 1</td><td>heading 2</td></tr><tr><td>data 1</td><td>data 2</td></tr></table>';
-WizzyWig.console = '<div class="middleFixed"><div id="wizzywigConsole" class="console tablet"><span id="plus">w</span><div class="left spaced" style="margin-top: 20px; ">' + WizzyWig.saveButton + WizzyWig.helpButton + '</div>' + WizzyWig.simpleConcept + WizzyWig.multiRowConcept + WizzyWig.clearDiv + '</div></div>';
+WizzyWig.simpleConcept1 = '<table id="simpleConcept"><tr><td class="names">Simple Concept 1</td><td>some input 1</td><td class="names">some action</td><td>some input 2</td></tr></table>';
+WizzyWig.simpleConcept2 = '<table id="simpleConcept"><tr><td class="names">Simple Concept 2</td><td>some input</td></tr></table>';
+WizzyWig.multiRowConcept = '<table class="left"><tr><td class="fixture">MultiRow Concept</td></tr><tr class="names"><td>heading 1</td><td>heading 2</td></tr><tr><td>data element 1</td><td>data element 2</td></tr></table>';
+WizzyWig.console = '<div class="middleFixed"><div id="wizzywigConsole" class="console tablet"><span id="plus">w</span><div class="left spaced" style="margin-top: 20px; ">' + WizzyWig.saveButton + WizzyWig.helpButton + '</div><div class="left">' + WizzyWig.simpleConcept1 + WizzyWig.simpleConcept2 + '</div>' + WizzyWig.multiRowConcept + WizzyWig.clearDiv + '</div></div>';
 
 WizzyWig.knownBugs = 'These features are known to misbehave in certain browsers:\n' +
         ' * Input fields don\'t respond to mouse clicks (Firefox)\n' +
