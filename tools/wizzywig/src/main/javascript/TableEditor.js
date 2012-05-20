@@ -16,12 +16,16 @@ function TableEditor() {
         if (!exists($("#wizzywigTableEditor"))) { buildConsole(); }
         $currentElement = $element;
         $currentTable = $table;
+        positionConsole($element, $table);
+        $("#wizzywigTableEditor").show();
+    }
+
+    function positionConsole($element, $table) {
         var datum = middle($element);
         var editorHeight = $("#wizzywigTableEditor").outerHeight();
         var top = datum - (editorHeight / 2);
         $("#wizzywigTableEditor").css("top", top);
         $("#wizzywigTableEditor").css("left", right($table));
-        $("#wizzywigTableEditor").show();
     }
 
     function buildConsole() {
@@ -45,7 +49,11 @@ function TableEditor() {
         if (!exists($currentTable.find("td"))) $currentTable.remove();
     }
 
-    function copyColumn() { cellsInColumn(function ($cell) { $cell.after(bless($cell.clone())); }); }
+    function copyColumn() { cellsInColumn(function ($cell) {
+        $cell.after(bless($cell.clone())); });
+        positionConsole($currentElement, $currentTable);
+    }
+
     function deleteColumn() { cellsInColumn(function ($cell) { $cell.remove(); }); }
 
     function cellsInColumn(f) {

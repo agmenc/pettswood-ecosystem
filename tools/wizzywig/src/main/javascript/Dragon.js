@@ -41,6 +41,7 @@ function DropTarget($element, options /* dragOver[function($element)], dragLeave
     }
 
     function handleDrop(event) {
+//        var data = original(event).dataTransfer.getData('text/html');
         if (options.drop) options.drop($element);
         $element.removeClass("dropTarget");
 

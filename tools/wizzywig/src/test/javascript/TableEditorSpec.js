@@ -66,14 +66,14 @@ describe('TableEditor', function () {
 
     it('After adding a column, the left of the editing console moves to the right of the table', function () {
         click("Food");
-        $("#add .l").click();
+        $("#wizzywigTableEditor .addColumn").click();
 
         expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")));
     });
 
     it('After adding a column, new cells are blessed', function () {
         click("Food");
-        $("#add .l").click();
+        $("#wizzywigTableEditor .addColumn").click();
 
         $("#testTable td").each(function() {
             expect($(this).hasClass("editable")).toBeTruthy();
