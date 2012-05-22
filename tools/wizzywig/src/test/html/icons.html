@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Scratchpad</title>
+    <style type="text/css">
+        table, div, td { padding: 0; margin: 0; }
+        table { border-collapse: collapse; }
+        td { border: thin solid grey; width: 5px; height: 5px; }
+
+        .add .change { background-color: green; }
+        table.add:hover .change { background-color: #00f300; }
+        table.add:hover { box-shadow: 2px 2px 5px #00f300, -2px -2px 5px #00f300; }
+
+        .delete .change { background-color: #af0000; }
+        table.delete:hover .change { background-color: red; }
+        table.delete:hover { box-shadow: 2px 2px 5px red, -2px -2px 5px red; }
+
+        .holder { float: left; margin: 20px; }
+    </style>
+</head>
+<body>
+<div class="holder">
+    <table class="add">
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr class="change"><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+</div>
+<div class="holder">
+    <table class="delete">
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr class="change"><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+</div>
+<div style="clear: both; "></div>
+<div class="holder">
+    <table class="add">
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+    </table>
+</div>
+<div class="holder">
+    <table class="delete">
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td class="change"></td><td></td><td></td><td></td></tr>
+    </table>
+</div>
+</body>
+</html>
