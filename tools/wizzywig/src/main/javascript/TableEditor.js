@@ -31,7 +31,7 @@ function TableEditor(blesser) {
         var editorHeight = $("#wizzywigTableEditor").outerHeight();
         var top = datum - (editorHeight / 2);
         $("#wizzywigTableEditor").css("top", top);
-        $("#wizzywigTableEditor").css("left", right($table));
+        $("#wizzywigTableEditor").css("left", right($table) + 10);
     }
 
     function lockConsole() { lockConsoleOpen = true; }
@@ -129,4 +129,4 @@ WizzyWig.deleteColumnButton = '<button class="deleteColumn clear left">Delete Co
 TableEditor.add = '<div class="spaced left">' + WizzyWig.copyTableButton + WizzyWig.addRowButton + WizzyWig.addColumnButton + '</div>';
 TableEditor.deleteCells = '<div class="spaced left">' + WizzyWig.deleteTableButton + WizzyWig.deleteRowButton + WizzyWig.deleteColumnButton + '</div>';
 TableEditor.circleConsole = '<div id="add" class="console circle left">' + TableEditor.buttonPad + '</div>';
-TableEditor.console = '<div id="wizzywigTableEditor">' + TableEditor.add + TableEditor.deleteCells + '</div>';
+TableEditor.console = '<div id="wizzywigTableEditor" class="console tablet">' + TableEditor.add + TableEditor.deleteCells + '</div>';

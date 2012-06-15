@@ -50,7 +50,7 @@ describe('TableEditor', function () {
     it('The left of the editing console is to the right of the table', function () {
         tableEditor.edit($("#monkeys"));
 
-        expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")));
+        expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")) + 10);
     });
 
     it('We can add duplicate columns to a table', function () {
