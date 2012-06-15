@@ -7,7 +7,8 @@ if (typeof $ === "undefined" || !$) alert('' +
 
 $(document).ready(function() {
     new CssLoader(cssUrl());
-    new WizzyWig(WizzyWig.editableElements, new Saver(), new TableEditor(), new DragonController());
+    var blesser = new Blesser();
+    new WizzyWig(WizzyWig.editableElements, new Saver(), new TableEditor(blesser), new DragonController(blesser), blesser);
 });
 
 function cssUrl() {

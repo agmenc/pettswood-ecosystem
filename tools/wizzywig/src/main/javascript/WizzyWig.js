@@ -15,11 +15,11 @@ function middle($element) { return $element.offset().top + whole($element.outerH
 function left($element) { return $element.offset().left; }
 function right($element) { return $element.offset().left + $element.outerWidth(); }
 
-function WizzyWig(editableElements, saver, tableEditor, dragonController) {
+function WizzyWig(editableElements, saver, tableEditor, dragonController, blesser) {
+    blesser.delegate(makeEditable);
     $(editableElements).each(function () { makeEditable($(this)); });
-    tableEditor.addBlesser(makeEditable);
     dragonController.makeMoveable($(WizzyWig.draggableElements));
-    dragonController.makeDropTarget($(WizzyWig.draggableElements), makeEditable);
+    dragonController.makeDropTarget($(WizzyWig.draggableElements));
 
     $("body").append(WizzyWig.console);
     $("#wizzywigConsole .save").click(function($event) { saver.save($event); });
@@ -28,8 +28,8 @@ function WizzyWig(editableElements, saver, tableEditor, dragonController) {
     function makeEditable($element) {
         $element.addClass("editable");
         $element.click(function () {
-            tableEditor.edit($element);
             if (!exists($element.find("input.inputter"))) new Inputter($element);
+            tableEditor.edit($element);
         });
         return $element;
     }

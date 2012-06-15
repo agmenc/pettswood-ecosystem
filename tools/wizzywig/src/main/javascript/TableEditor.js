@@ -1,23 +1,29 @@
 //
 
-function TableEditor() {
+function TableEditor(blesser) {
     var $currentElement;
     var $currentTable;
-    var bless;
+    var lockConsoleOpen = false;
 
     this.edit = function ($element) {
         var $table = $element.parents("table").first();
         if (exists($table)) showConsole($table, $element);
+
+        var $inputField = $element.find("input.inputter").first();
+        if (exists($inputField)) $inputField.blur(hideConsole);
     };
 
-    this.addBlesser = function (blesserFunction) { bless = blesserFunction; };
+    function hideConsole() {
+        if (lockConsoleOpen) lockConsoleOpen = false;
+        else $("#wizzywigTableEditor").hide();
+    }
 
     function showConsole($table, $element) {
         if (!exists($("#wizzywigTableEditor"))) { buildConsole(); }
         $currentElement = $element;
         $currentTable = $table;
-        positionConsole($element, $table);
         $("#wizzywigTableEditor").show();
+        positionConsole($element, $table);
     }
 
     function positionConsole($element, $table) {
@@ -28,29 +34,42 @@ function TableEditor() {
         $("#wizzywigTableEditor").css("left", right($table));
     }
 
+    function lockConsole() { lockConsoleOpen = true; }
+    function unlockConsole() { lockConsoleOpen = false; }
+
     function buildConsole() {
         $("body").append(TableEditor.console);
         $("#wizzywigTableEditor").hide();
-        $("#wizzywigTableEditor .copyTable").click(copyTable);
-        $("#wizzywigTableEditor .addColumn").click(copyColumn);
-        $("#wizzywigTableEditor .addRow").click(copyRow);
-        $("#wizzywigTableEditor .deleteTable").click(deleteTable);
-        $("#wizzywigTableEditor .deleteColumn").click(deleteColumn);
-        $("#wizzywigTableEditor .deleteRow").click(deleteRow);
+        $("#wizzywigTableEditor .copyTable").click(hideAfter(copyTable));
+        $("#wizzywigTableEditor .addColumn").click(hideAfter(copyColumn));
+        $("#wizzywigTableEditor .addRow").click(hideAfter(copyRow));
+        $("#wizzywigTableEditor .deleteTable").click(hideAfter(deleteTable));
+        $("#wizzywigTableEditor .deleteColumn").click(hideAfter(deleteColumn));
+        $("#wizzywigTableEditor .deleteRow").click(hideAfter(deleteRow));
+        $("#wizzywigTableEditor").focus(function () { $("#wizzywigTableEditor").show(); });
+        $("#wizzywigTableEditor button").mouseenter(lockConsole);
+        $("#wizzywigTableEditor button").mouseleave(unlockConsole);
+    }
+
+    function hideAfter(fn) {
+        return function() {
+            fn();
+            hideConsole();
+        }
     }
 
     function deleteTable() { $currentTable.remove(); }
 
     function copyTable() {
         var $newTable = $currentTable.clone();
-        $newTable.find("td").each(function() { bless($(this)) });
+        $newTable.find("td").each(function () { blesser.bless($(this)) });
         $currentTable.after($newTable);
     }
 
     function copyRow() {
         var $row = $currentElement.parent();
         var $newRow = $row.clone();
-        $newRow.children().each(function () { bless($(this))} );
+        $newRow.children().each(function () { blesser.bless($(this))});
         $row.after($newRow);
     }
 
@@ -59,8 +78,10 @@ function TableEditor() {
         if (!exists($currentTable.find("td"))) $currentTable.remove();
     }
 
-    function copyColumn() { cellsInColumn(function ($cell) {
-        $cell.after(bless($cell.clone())); });
+    function copyColumn() {
+        cellsInColumn(function ($cell) {
+            $cell.after(blesser.bless($cell.clone()));
+        });
         positionConsole($currentElement, $currentTable);
     }
 
@@ -69,10 +90,10 @@ function TableEditor() {
     function cellsInColumn(f) {
         var column = index($currentElement);
         $currentTable.find("tr")
-            .filter(function () { return !$(this).hasClass("fixture"); })
-            .each(function () {
-                f($($(this).children("td").get(column)));
-            });
+                .filter(function () { return !$(this).hasClass("fixture"); })
+                .each(function () {
+                          f($($(this).children("td").get(column)));
+                      });
     }
 
     function index($element) {

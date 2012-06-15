@@ -13,7 +13,7 @@ describe('TableEditor', function () {
             '        <td class="editable">Predator</td>' +
             '    </tr>' +
             '    <tr>' +
-            '        <td id="monkeys" class="editable">Monkeys</td>' +
+            '        <td id="monkeys" class="editable">Monkeys<input class="inputter" type="text" id="anInputField"></td>' +
             '        <td class="editable">Nuts</td>' +
             '        <td class="editable">Lions</td>' +
             '    </tr>' +
@@ -23,13 +23,14 @@ describe('TableEditor', function () {
     beforeEach(function () {
         $("head").append('<link rel="stylesheet" type="text/css" href="../../main/css/wizzywig.css"/>');
         $("body").append(testTable);
-        tableEditor = new TableEditor();
-        tableEditor.addBlesser(function(x) { return x });
+        $("body").append('<div id="somethingElse">Something Else</div>');
+        tableEditor = new TableEditor(new Blesser());
     });
 
     afterEach(function () {
         $(".testTable").remove();
         $("#wizzywigTableEditor").remove();
+        $("#somethingElse").remove();
     });
 
     it('Clicking on a table cell causes the table editing console to be displayed', function () {
@@ -62,13 +63,6 @@ describe('TableEditor', function () {
         $("#wizzywigTableEditor .addColumn").click();
 
         expect($("#headers td").length).toEqual(5);
-    });
-
-    it('After adding a column, the left of the editing console moves to the right of the table', function () {
-        click("Food");
-        $("#wizzywigTableEditor .addColumn").click();
-
-        expect(left($("#wizzywigTableEditor"))).toEqual(right($("#testTable")));
     });
 
     it('After adding a column, new cells are blessed', function () {
@@ -146,6 +140,14 @@ describe('TableEditor', function () {
         $("#wizzywigTableEditor .deleteTable").click();
 
         expect(exists($(".testTable"))).toBeFalsy();
+    });
+
+    it('When we stop editing a table, the editing console disappears', function () {
+        click("Monkeys");
+        expect($("#wizzywigTableEditor").is(":visible")).toBeTruthy();
+
+        $("#anInputField").blur();
+        expect($("#wizzywigTableEditor").is(":visible")).toBeFalsy();
     });
 
     function click(cellText) {

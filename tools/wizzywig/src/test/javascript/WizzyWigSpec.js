@@ -11,7 +11,6 @@ describe('WizzyWig', function () {
     var tableEditor = new function() {
         var self = this;
         this.edit = function(element) { self.element = element; };
-        this.addBlesser = function(f) { self.bless = f; };
     };
 
     beforeEach(function () {
@@ -19,7 +18,7 @@ describe('WizzyWig', function () {
         expect($(WizzyWig.editableElements).length).toBeGreaterThan(0);
         saver = new Saver();
         dragonController = new DragonController();
-        wizzyWig = new WizzyWig(WizzyWig.editableElements, saver, tableEditor, dragonController);
+        wizzyWig = new WizzyWig(WizzyWig.editableElements, saver, tableEditor, dragonController, new Blesser());
     });
 
     afterEach(function () {
