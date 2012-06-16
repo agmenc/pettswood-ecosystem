@@ -87,7 +87,7 @@ describe('TableEditor', function () {
         expect($("#testTable tr").length).toEqual(3);
 
         click("Predator");
-        $("#wizzywigTableEditor .addRow").click();
+        $("#wizzywigTableEditor .add.row").click();
 
         expect($("#testTable tr").length).toEqual(4);
     });

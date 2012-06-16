@@ -10,6 +10,12 @@ function exists($thing) {
     return $thing.size() > 0;
 }
 
+var tail = function() { return this.slice(1); };
+String.prototype.head = function() { return this.slice(0, 1); };
+String.prototype.tail = tail;
+Array.prototype.head = function() { return this[0]; };
+Array.prototype.tail = tail;
+
 function whole(num) { return parseInt(num.toFixed(0)); }
 function middle($element) { return $element.offset().top + whole($element.outerHeight()/2); }
 function left($element) { return $element.offset().left; }

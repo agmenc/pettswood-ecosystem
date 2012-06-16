@@ -17,15 +17,21 @@ input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; borde
 #wizzywigConsole:hover { height: auto; width: auto; }
 
 #wizzywigTableEditor { position: absolute; }
-#wizzywigTableEditor table, #wizzywigTableEditor td { margin: 0; padding: 0; border: none; }
-#wizzywigTableEditor td:hover { background-color: #00d000; }
+#wizzywigTableEditor .holder table { margin: 5px; }
+#wizzywigTableEditor .holder td { border: thin solid grey; width: 5px; height: 5px; padding: 0; }
+
+.add .change { background-color: green; }
+table.add:hover { box-shadow: 2px 2px 5px #00f300, -2px -2px 5px #00f300; }
+table.add:hover .change { background-color: #00f300; }
+
+.delete .change { background-color: #af0000; }
+table.delete:hover { box-shadow: 2px 2px 5px red, -2px -2px 5px red; }
+table.delete:hover .change { background-color: red; }
 
 h1, h2, h3, h4, h5, h6  { display: table; }
 
 .console {
     border: 2px solid #b6b6b6;
-    /*color: #e4e4e4;*/
-    /*color: #d3d3d3;*/
     background: -webkit-gradient(linear, left top, left bottom, from(white), to(#d3d3d3));
     background: -moz-linear-gradient(top,  #e4e4e4,  gray);
 }
