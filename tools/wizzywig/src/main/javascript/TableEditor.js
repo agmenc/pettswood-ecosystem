@@ -41,12 +41,14 @@ function TableEditor(blesser) {
         $("body").append(TableEditor.console);
         $("#wizzywigTableEditor").hide();
         $("#wizzywigTableEditor .copyTable").click(hideAfter(copyTable));
-        $("#wizzywigTableEditor .addColumn").click(hideAfter(copyColumn));
+        $("#wizzywigTableEditor .add.column").click(hideAfter(copyColumn));
         $("#wizzywigTableEditor .add.row").click(hideAfter(copyRow));
         $("#wizzywigTableEditor .deleteTable").click(hideAfter(deleteTable));
-        $("#wizzywigTableEditor .deleteColumn").click(hideAfter(deleteColumn));
-        $("#wizzywigTableEditor .deleteRow").click(hideAfter(deleteRow));
+        $("#wizzywigTableEditor .delete.column").click(hideAfter(deleteColumn));
+        $("#wizzywigTableEditor .delete.row").click(hideAfter(deleteRow));
         $("#wizzywigTableEditor").focus(function () { $("#wizzywigTableEditor").show(); });
+        $("#wizzywigTableEditor").find(".add, .delete").mouseenter(lockConsole);
+        $("#wizzywigTableEditor").find(".add, .delete").mouseleave(unlockConsole);
         $("#wizzywigTableEditor button").mouseenter(lockConsole);
         $("#wizzywigTableEditor button").mouseleave(unlockConsole);
     }
@@ -122,11 +124,11 @@ function TableEditor(blesser) {
     TableEditor.affectRow = ["00000", "11111", "00000", "00000"];
     TableEditor.copyTableButton = '<button class="copyTable clear right">Copy Table</button>';
     TableEditor.addRowButton = button("add", "row", TableEditor.affectRow);
-    TableEditor.addColumnButton = '<button class="addColumn clear right">Add Column</button>';
+    TableEditor.addColumnButton = button("add", "column", TableEditor.affectColumn);
     TableEditor.deleteTableButton = '<button class="deleteTable clear left">Delete Table</button>';
-    TableEditor.deleteRowButton = '<button class="deleteRow clear left">Delete Row</button>';
-    TableEditor.deleteColumnButton = '<button class="deleteColumn clear left">Delete Column</button>';
+    TableEditor.deleteRowButton = button("delete", "row", TableEditor.affectRow);
+    TableEditor.deleteColumnButton = button("delete", "column", TableEditor.affectColumn);
     TableEditor.add = '<div class="spaced left">' + TableEditor.copyTableButton + TableEditor.addRowButton + TableEditor.addColumnButton + '</div>';
     TableEditor.deleteCells = '<div class="spaced left">' + TableEditor.deleteTableButton + TableEditor.deleteRowButton + TableEditor.deleteColumnButton + '</div>';
-    TableEditor.console = '<div id="wizzywigTableEditor" class="console tablet">' + TableEditor.add + TableEditor.deleteCells + '</div>';
+    TableEditor.console = '<div id="wizzywigTableEditor" class="console">' + TableEditor.add + TableEditor.deleteCells + '</div>';
 }

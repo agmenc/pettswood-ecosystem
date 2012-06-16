@@ -31,26 +31,12 @@ table.delete:hover .change { background-color: red; }
 h1, h2, h3, h4, h5, h6  { display: table; }
 
 .console {
+    border-radius: 10px; position: relative;
     border: 2px solid #b6b6b6;
     background: -webkit-gradient(linear, left top, left bottom, from(white), to(#d3d3d3));
     background: -moz-linear-gradient(top,  #e4e4e4,  gray);
 }
 
-.tablet { border-radius: 10px; position: relative; }
-.circle { height: 60px; width: 60px; border-radius: 30px; }
-
-.arrow { width: 0; height: 0; border: 10px solid transparent; margin: auto; }
-.u { border-bottom: 20px solid black; border-top: none; }
-.d { border-top: 20px solid black; border-bottom: none; }
-.l { border-right: 20px solid black; border-left: none; }
-.r { border-left: 20px solid black; border-right: none; }
-
-.rotate {
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
 .expand {width: 100%; height: 100%; margin: 0; }
 .middle { vertical-align: middle; text-align: center; margin: 0; }
 .middleFixed { position: fixed; left: 50%; top: 10px; }
