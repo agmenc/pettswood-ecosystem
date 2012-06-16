@@ -20,6 +20,8 @@ input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; borde
 #wizzywigTableEditor .holder table { margin: 5px; }
 #wizzywigTableEditor .holder td { border: thin solid grey; width: 5px; height: 5px; padding: 0; }
 
+.iconsTitle { font-size: x-large; text-align: center; width: 100%; height: 20px; position: relative; top: -5px; }
+
 .add .change { background-color: green; }
 table.add:hover { box-shadow: 2px 2px 5px #00f300, -2px -2px 5px #00f300; }
 table.add:hover .change { background-color: #00f300; }

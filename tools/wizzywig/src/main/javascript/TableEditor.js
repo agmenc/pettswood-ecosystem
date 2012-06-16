@@ -40,17 +40,15 @@ function TableEditor(blesser) {
     function buildConsole() {
         $("body").append(TableEditor.console);
         $("#wizzywigTableEditor").hide();
-        $("#wizzywigTableEditor .copyTable").click(hideAfter(copyTable));
+        $("#wizzywigTableEditor .add.table").click(hideAfter(copyTable));
         $("#wizzywigTableEditor .add.column").click(hideAfter(copyColumn));
         $("#wizzywigTableEditor .add.row").click(hideAfter(copyRow));
-        $("#wizzywigTableEditor .deleteTable").click(hideAfter(deleteTable));
+        $("#wizzywigTableEditor .delete.table").click(hideAfter(deleteTable));
         $("#wizzywigTableEditor .delete.column").click(hideAfter(deleteColumn));
         $("#wizzywigTableEditor .delete.row").click(hideAfter(deleteRow));
         $("#wizzywigTableEditor").focus(function () { $("#wizzywigTableEditor").show(); });
         $("#wizzywigTableEditor").find(".add, .delete").mouseenter(lockConsole);
         $("#wizzywigTableEditor").find(".add, .delete").mouseleave(unlockConsole);
-        $("#wizzywigTableEditor button").mouseenter(lockConsole);
-        $("#wizzywigTableEditor button").mouseleave(unlockConsole);
     }
 
     function hideAfter(fn) {
@@ -98,9 +96,7 @@ function TableEditor(blesser) {
                       });
     }
 
-    function index($element) {
-        return $element.parent().children().index($element);
-    }
+    function index($element) { return $element.parent().children().index($element); }
 
     function button(effect, orientation, rows) {
         return '<div class="holder clear right">\n' +
@@ -110,25 +106,20 @@ function TableEditor(blesser) {
                 '</div>\n';
     }
 
-    function renderRows(rows) {
-        return (rows.length == 0) ? "" : '<tr>' + renderRow(rows.head()) + '</tr>' + renderRows(rows.tail());
-    }
-
-    function renderRow(cells) {
-        return cells == "" ? "" : renderSingleCell(cells.head()) + renderRow(cells.tail());
-    }
-
-    function renderSingleCell(cellType) { return (cellType == "1") ? '<td class="change"></td>' : '<td></td>'; }
+    function renderRows(rows) { return (rows.length == 0) ? "" : '<tr>' + renderRow(rows.head()) + '</tr>' + renderRows(rows.tail()); }
+    function renderRow(cells) { return cells == "" ? "" : renderCell(cells.head()) + renderRow(cells.tail()); }
+    function renderCell(cellType) { return (cellType == "1") ? '<td class="change"></td>' : '<td></td>'; }
 
     TableEditor.affectColumn = ["01000", "01000", "01000", "01000"];
     TableEditor.affectRow = ["00000", "11111", "00000", "00000"];
-    TableEditor.copyTableButton = '<button class="copyTable clear right">Copy Table</button>';
+    TableEditor.affectAll = ["11111", "11111", "11111", "11111"];
+    TableEditor.copyTableButton = button("add", "table", TableEditor.affectAll);
     TableEditor.addRowButton = button("add", "row", TableEditor.affectRow);
     TableEditor.addColumnButton = button("add", "column", TableEditor.affectColumn);
-    TableEditor.deleteTableButton = '<button class="deleteTable clear left">Delete Table</button>';
+    TableEditor.deleteTableButton = button("delete", "table", TableEditor.affectAll);
     TableEditor.deleteRowButton = button("delete", "row", TableEditor.affectRow);
     TableEditor.deleteColumnButton = button("delete", "column", TableEditor.affectColumn);
-    TableEditor.add = '<div class="spaced left">' + TableEditor.copyTableButton + TableEditor.addRowButton + TableEditor.addColumnButton + '</div>';
-    TableEditor.deleteCells = '<div class="spaced left">' + TableEditor.deleteTableButton + TableEditor.deleteRowButton + TableEditor.deleteColumnButton + '</div>';
+    TableEditor.add = '<div class="spaced left"><div class="iconsTitle clear right">+</div>' + TableEditor.copyTableButton + TableEditor.addRowButton + TableEditor.addColumnButton + '</div>';
+    TableEditor.deleteCells = '<div class="spaced left"><div class="iconsTitle clear left">-</div>' + TableEditor.deleteTableButton + TableEditor.deleteRowButton + TableEditor.deleteColumnButton + '</div>';
     TableEditor.console = '<div id="wizzywigTableEditor" class="console">' + TableEditor.add + TableEditor.deleteCells + '</div>';
 }
