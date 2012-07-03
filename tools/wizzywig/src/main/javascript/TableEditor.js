@@ -40,21 +40,20 @@ function TableEditor(blesser) {
     function buildConsole() {
         $("body").append(TableEditor.console);
         $("#wizzywigTableEditor").hide();
-        $("#wizzywigTableEditor .add.table").click(hideAfter(copyTable));
-        $("#wizzywigTableEditor .add.column").click(hideAfter(copyColumn));
-        $("#wizzywigTableEditor .add.row").click(hideAfter(copyRow));
-        $("#wizzywigTableEditor .delete.table").click(hideAfter(deleteTable));
-        $("#wizzywigTableEditor .delete.column").click(hideAfter(deleteColumn));
-        $("#wizzywigTableEditor .delete.row").click(hideAfter(deleteRow));
-        $("#wizzywigTableEditor").focus(function () { $("#wizzywigTableEditor").show(); });
+        $("#wizzywigTableEditor .add.table").click(unlockAfter(copyTable));
+        $("#wizzywigTableEditor .add.column").click(unlockAfter(copyColumn));
+        $("#wizzywigTableEditor .add.row").click(unlockAfter(copyRow));
+        $("#wizzywigTableEditor .delete.table").click(unlockAfter(deleteTable));
+        $("#wizzywigTableEditor .delete.column").click(unlockAfter(deleteColumn));
+        $("#wizzywigTableEditor .delete.row").click(unlockAfter(deleteRow));
         $("#wizzywigTableEditor").find(".add, .delete").mouseenter(lockConsole);
-        $("#wizzywigTableEditor").find(".add, .delete").mouseleave(unlockConsole);
+        $("#wizzywigTableEditor").mouseleave(hideConsole);
     }
 
-    function hideAfter(fn) {
+    function unlockAfter(fn) {
         return function() {
             fn();
-            hideConsole();
+            unlockConsole();
         }
     }
 

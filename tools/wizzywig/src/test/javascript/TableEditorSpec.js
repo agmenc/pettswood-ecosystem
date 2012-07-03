@@ -57,17 +57,17 @@ describe('TableEditor', function () {
         expect($("#headers td").length).toEqual(3);
 
         click("Predator");
-        $("#wizzywigTableEditor .addColumn").click();
+        $("#wizzywigTableEditor .add.column").click();
 
         click("Nuts");
-        $("#wizzywigTableEditor .addColumn").click();
+        $("#wizzywigTableEditor .add.column").click();
 
         expect($("#headers td").length).toEqual(5);
     });
 
     it('After adding a column, new cells are blessed', function () {
         click("Food");
-        $("#wizzywigTableEditor .addColumn").click();
+        $("#wizzywigTableEditor .add.column").click();
 
         $("#testTable td").each(function() {
             expect($(this).hasClass("editable")).toBeTruthy();
@@ -78,7 +78,7 @@ describe('TableEditor', function () {
         expect($("#title td").length).toEqual(1);
 
         click("Prey");
-        $("#wizzywigTableEditor .addColumn").click();
+        $("#wizzywigTableEditor .add.column").click();
 
         expect($("#title td").length).toEqual(1);
     });
@@ -96,7 +96,7 @@ describe('TableEditor', function () {
         expect($("#testTable tr").length).toEqual(3);
 
         click("Predator");
-        $("#wizzywigTableEditor .deleteRow").click();
+        $("#wizzywigTableEditor .delete.row").click();
 
         expect($("#testTable tr").length).toEqual(2);
     });
@@ -105,7 +105,7 @@ describe('TableEditor', function () {
         expect($("#headers td").length).toEqual(3);
 
         click("Nuts");
-        $("#wizzywigTableEditor .deleteColumn").click();
+        $("#wizzywigTableEditor .delete.column").click();
 
         expect($("#headers td").length).toEqual(2);
     });
@@ -114,12 +114,12 @@ describe('TableEditor', function () {
         expect($("#headers td").length).toEqual(3);
 
         click("Monkeys");
-        $("#wizzywigTableEditor .deleteColumn").click();
-        $("#wizzywigTableEditor .deleteColumn").click();
-        $("#wizzywigTableEditor .deleteColumn").click();
+        $("#wizzywigTableEditor .delete.column").click();
+        $("#wizzywigTableEditor .delete.column").click();
+        $("#wizzywigTableEditor .delete.column").click();
 
         click("Animals");
-        $("#wizzywigTableEditor .deleteRow").click();
+        $("#wizzywigTableEditor .delete.row").click();
 
         expect(exists($("#testTable"))).toBeFalsy();
     });
@@ -128,7 +128,7 @@ describe('TableEditor', function () {
         expect($(".testTable").length).toEqual(1);
 
         click("Nuts");
-        $("#wizzywigTableEditor .copyTable").click();
+        $("#wizzywigTableEditor .add.table").click();
 
         expect($(".testTable").length).toEqual(2);
     });
@@ -137,7 +137,7 @@ describe('TableEditor', function () {
         expect(exists($(".testTable"))).toBeTruthy();
 
         click("Nuts");
-        $("#wizzywigTableEditor .deleteTable").click();
+        $("#wizzywigTableEditor .delete.table").click();
 
         expect(exists($(".testTable"))).toBeFalsy();
     });
