@@ -19,12 +19,15 @@ describe('TableEditor', function () {
             '    </tr>' +
             '</table>';
     var tableEditor;
+    var blesser;
 
     beforeEach(function () {
         $("head").append('<link rel="stylesheet" type="text/css" href="../../main/css/wizzywig.css"/>');
         $("body").append(testTable);
         $("body").append('<div id="somethingElse">Something Else</div>');
-        tableEditor = new TableEditor(new Blesser());
+        blesser = new Blesser();
+        spyOn(blesser, 'bless');
+        tableEditor = new TableEditor(blesser);
     });
 
     afterEach(function () {
@@ -148,6 +151,15 @@ describe('TableEditor', function () {
 
         $("#anInputField").blur();
         expect($("#wizzywigTableEditor").is(":visible")).toBeFalsy();
+    });
+
+    it('New tables should be draggable', function () {
+        expect($(".testTable").length).toEqual(1);
+
+        click("Nuts");
+        $("#wizzywigTableEditor .add.table").click();
+
+        expect(blesser.bless).toHaveBeenCalled();
     });
 
     function click(cellText) {

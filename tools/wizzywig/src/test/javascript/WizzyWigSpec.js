@@ -6,7 +6,7 @@ describe('WizzyWig', function () {
             '<div id="html">' +
             '  <h1 id="mainHeading">Monkeys</h1><table><tr><td id="grrr">Lions</td></tr></table><h2>Zebras</h2><p>Apples</p><div>Elephants</div>' +
             '</div>';
-    var wizzyWig, saver, dragonController;
+    var wizzyWig, saver, dragonController, blesser;
 
     var tableEditor = new function() {
         var self = this;
@@ -17,8 +17,9 @@ describe('WizzyWig', function () {
         $("body").append(HTML);
         expect($(WizzyWig.editableElements).length).toBeGreaterThan(0);
         saver = new Saver();
-        dragonController = new DragonController();
-        wizzyWig = new WizzyWig(WizzyWig.editableElements, saver, tableEditor, dragonController, new Blesser());
+        blesser = new Blesser();
+        dragonController = new DragonController(blesser);
+        wizzyWig = new WizzyWig(WizzyWig.editableElements, saver, tableEditor, dragonController, blesser);
     });
 
     afterEach(function () {

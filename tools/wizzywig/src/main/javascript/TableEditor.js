@@ -61,15 +61,15 @@ function TableEditor(blesser) {
 
     function copyTable() {
         var $newTable = $currentTable.clone();
-        $newTable.find("td").each(function () { blesser.bless($(this)) });
         $currentTable.after($newTable);
+        blesser.bless($newTable);
     }
 
     function copyRow() {
         var $row = $currentElement.parent();
         var $newRow = $row.clone();
-        $newRow.children().each(function () { blesser.bless($(this))});
         $row.after($newRow);
+        blesser.bless($newRow);
     }
 
     function deleteRow() {
@@ -79,7 +79,9 @@ function TableEditor(blesser) {
 
     function copyColumn() {
         cellsInColumn(function ($cell) {
-            $cell.after(blesser.bless($cell.clone()));
+            var newCell = $cell.clone();
+            $cell.after(newCell);
+            blesser.bless(newCell)
         });
         positionConsole($currentElement, $currentTable);
     }

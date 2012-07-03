@@ -11,7 +11,7 @@ describe('DragonController', function () {
                 '<div id="monkeys">Monkeys</div>' +
                 '<div id="elephants">Elephants</div>' +
                 '</div>');
-        controller = new DragonController(function() {});
+        controller = new DragonController(new Blesser());
     });
 
     afterEach(function () {

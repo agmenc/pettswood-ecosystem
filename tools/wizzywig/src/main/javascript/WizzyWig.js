@@ -22,14 +22,19 @@ function left($element) { return $element.offset().left; }
 function right($element) { return $element.offset().left + $element.outerWidth(); }
 
 function WizzyWig(editableElements, saver, tableEditor, dragonController, blesser) {
-    blesser.delegate(makeEditable);
-    $(editableElements).each(function () { makeEditable($(this)); });
+    blesser.delegate(bless);
+    bless($("body"));
     dragonController.makeMoveable($(WizzyWig.draggableElements));
     dragonController.makeDropTarget($(WizzyWig.draggableElements));
 
     $("body").append(WizzyWig.console);
     $("#wizzywigConsole .save").click(function($event) { saver.save($event); });
     dragonController.makeCopyable($("#wizzywigConsole table"));
+
+    function bless($element) {
+        if ($element.is("td")) makeEditable($element);
+        else $element.find($(editableElements)).each(function () { makeEditable($(this)); });
+    }
 
     function makeEditable($element) {
         $element.addClass("editable");
