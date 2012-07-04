@@ -34,9 +34,9 @@ h1, h2, h3, h4, h5, h6  { display: table; }
 
 .console {
     border-radius: 10px; position: relative;
-    border: 2px solid #b6b6b6;
-    background: -webkit-gradient(linear, left top, left bottom, from(white), to(#d3d3d3));
-    background: -moz-linear-gradient(top,  #e4e4e4,  gray);
+    border: 1px solid #d3d3d3;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(#e5e5e5));
+    background: -moz-linear-gradient(top,  #e4e4e4,  #e5e5e5);
 }
 
 .expand {width: 100%; height: 100%; margin: 0; }
