@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/sbt-acceptance-config.iml" filepath="$PROJECT_DIR$/sbt-acceptance-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbt-acceptance-config-project.iml" filepath="$PROJECT_DIR$/sbt-acceptance-config-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbt-simple.iml" filepath="$PROJECT_DIR$/sbt-simple.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbt-simple-project.iml" filepath="$PROJECT_DIR$/sbt-simple-project.iml" />
     </modules>
   </component>
 </project>
