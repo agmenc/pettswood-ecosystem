@@ -6,8 +6,10 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../sbt-acceptance-config/lib/src/pettswood_2.9.1-0.0.9-SNAPSHOT-sources.jar!/" />
       <root url="file://$PROJECT_DIR$/../../sbt-acceptance-config/lib/src" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/../../sbt-acceptance-config/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../sbt-acceptance-config/lib/src" recursive="false" type="SOURCES" />
   </library>
 </component>

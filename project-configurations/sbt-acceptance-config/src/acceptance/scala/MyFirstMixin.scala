@@ -1,5 +1,3 @@
-package mixins
-
 import org.pettswood.{DomainBridge, Mixin}
 import concepts.HelloWorld
 

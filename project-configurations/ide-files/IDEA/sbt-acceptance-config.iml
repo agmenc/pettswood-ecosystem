@@ -5,6 +5,7 @@
       <configuration>
         <option name="compilerLibraryLevel" value="Global" />
         <option name="compilerLibraryName" value="scala-compiler-2.9.1" />
+        <option name="fsc" value="true" />
       </configuration>
     </facet>
   </component>
@@ -20,6 +21,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="scala" level="project" />
   </component>
 </module>
 
