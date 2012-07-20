@@ -23,12 +23,11 @@ function DragonController(blesser) {
         if (effect === "copy") {
             $incoming = $source.clone();
             $incoming.addClass("clear").removeClass("left");
+            $target.before($incoming);
             blesser.bless($incoming);
             new DragSource($incoming, {dragStart: dragRecorder});
             new DropTarget($incoming, {drop: dropHandler});
-        }
-
-        $target.before($incoming);
+        } else  $target.before($incoming);
     }
 
     blesser.delegate(function($element) { self.makeMoveable($element);  self.makeDropTarget($element); })
