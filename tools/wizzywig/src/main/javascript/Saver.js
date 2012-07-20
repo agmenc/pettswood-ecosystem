@@ -25,7 +25,7 @@ function Saver() {
 
     this.save = function($event) {
         var uriContent = "data:application/octet-stream," + encodeURIComponent(self.contents());
-        window.open(uriContent, 'Save');
+        window.open(uriContent, '_self');
         $event.stopPropagation();
         $event.preventDefault();
         return false;
