@@ -7,7 +7,7 @@ describe('CssLoader', function () {
     });
 
     afterEach(function () {
-        link("wizzywig.css").remove()
+//        link("wizzywig.css").remove()
     });
 
     it('We can load a CSS script', function () {
@@ -17,6 +17,19 @@ describe('CssLoader', function () {
         waitsFor(function () {
             return exists(link("wizzywig"));
         }, "CSS link to be added", 500);
+    });
+
+    it('Only loads a CSS script if one does not already exist', function () {
+        expect(exists(link("wizzywig.css"))).toBeFalsy();
+        new CssLoader("../../main/css/wizzywig.css");
+        new CssLoader("../../main/css/wizzywig.css");
+        new CssLoader("../../main/css/wizzywig.css");
+
+        waitsFor(function () {
+            return exists(link("wizzywig"));
+        }, "CSS link to be added", 500);
+
+        expect(link("wizzywig").size()).toBe(1)
     });
 
     function link(name) {
