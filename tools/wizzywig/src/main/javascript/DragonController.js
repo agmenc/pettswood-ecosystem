@@ -30,5 +30,6 @@ function DragonController(blesser) {
         } else  $target.before($incoming);
     }
 
+    // TODO - CAS - 26/07/2012 - Blesser functions need to find the list of relevant elements and only operate on those. Otherwise, every bloody thing becomes moveable
     blesser.delegate(function($element) { self.makeMoveable($element);  self.makeDropTarget($element); })
 }

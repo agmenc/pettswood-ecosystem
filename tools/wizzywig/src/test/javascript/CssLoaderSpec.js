@@ -7,7 +7,7 @@ describe('CssLoader', function () {
     });
 
     afterEach(function () {
-//        link("wizzywig.css").remove()
+        link("wizzywig.css").remove()
     });
 
     it('We can load a CSS script', function () {

@@ -8,7 +8,7 @@ function mockEvent() {
 }
 
 describe('Saver', function () {
-    var contents = '<div id="saverTest"><div class="editable"><h1 class="editable">Whatever</h1><div id="wizzywigConsole">sausage</div><p class="hairy editable">Monkeys</p></div></div>';
+    var contents = '<div id="saverTest"><div class="editable"><h1 class="editable">Whatever</h1><div class="middleFixed"><div id="wizzywigConsole">sausage</div></div><p class="hairy editable" draggable="true">Monkeys</p></div></div>';
 
     beforeEach(function () {
         $("body").append(contents);
